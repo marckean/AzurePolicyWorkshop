@@ -1,0 +1,55 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-08-01/managementGroupDeploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "metadata": {
+        "_generator": {
+            "name": "bicep",
+            "version": "0.5.6.12127",
+            "templateHash": "1532257987028557958"
+        }
+    },
+    "parameters": {
+        "targetSubID": {
+            "type": "string",
+            "defaultValue": "7ac51792-8ea1-4ea8-be56-eb515e42aadf",
+            "metadata": {
+                "description": "Target Management Group"
+            }
+        },
+        "targetRegion": {
+            "type": "string",
+            "defaultValue": "australiaeast",
+            "metadata": {
+                "description": "Target Management Group"
+            }
+        },
+        "TS_resourceGroupName": {
+            "type": "string",
+            "defaultValue": "TemplateSpecs",
+            "metadata": {
+                "description": "Template Specs Resource Group Name"
+            }
+        }
+    },
+    "variables": {
+
+    },
+    "resources": [
+        { // Subscription Scope - Assignments
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2021-04-01",
+            "name": "nestedSub",
+            "subscriptionId": "[parameters('targetSubID')]",
+            "location": "[parameters('targetRegion')]",
+            "properties": {                
+                "mode": "Incremental",
+                "templateLink": {
+                    "id": "[resourceId(parameters('targetSubID'), parameters('TS_resourceGroupName'), 'Microsoft.Resources/templateSpecs/versions', 'Child_GuestConfigurationAssignment', '1.0.0')]"
+                },
+                "parameters": {
+
+                }
+            }
+        }
+    ]
+}

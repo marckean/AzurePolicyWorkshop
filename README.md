@@ -61,4 +61,4 @@
 
 ### Deployment of Azure resources
 
-Run the `_deploy-AzureBicepResources.ps1` file in the [Deployment of Azure resources](Deployment of Azure resources) folder.
+Run the `_deploy-AzureBicepResources.ps1` file in the [Deployment of Azure resources](/Deployment%20of%20Azure%20resources/) folder.

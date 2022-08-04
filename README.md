@@ -1,5 +1,14 @@
 # AzurePolicyWorkshop
 
+- [AzurePolicyWorkshop](#azurepolicyworkshop)
+  - [Agenda](#agenda)
+    - [Day 1](#day-1)
+    - [Day 2](#day-2)
+    - [Day 3](#day-3)
+  - [Labs](#labs)
+    - [Setup the local tools & environment](#setup-the-local-tools--environment)
+    - [Deployment of Azure resources](#deployment-of-azure-resources)
+
 
 
 ## Agenda

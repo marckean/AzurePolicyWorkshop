@@ -59,6 +59,42 @@
 
 ## Labs
 
+### Setup the local tools & environment
+
+1. [Install the Azure extension for VS Code](https://marketplace.visualstudio.com/items?itemName=ms-vscode.vscode-node-azure-pack). Then sign into Azure.
+
+
+![](blobs/AzureExtension.png)
+
+![](blobs/VSCodeSignIntoAzure.png)
+
+2. [Use Azure Policy extension for Visual Studio Code](https://docs.microsoft.com/en-us/azure/governance/policy/how-to/extension-for-vscode)
+
+![](blobs/AzurePolicyExtension.png)
+
+3. [Install PowerShell on Windows, Linux, and macOS](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell)
+
+![](blobs/PowerShell.png)
+
+4. [Install the Azure Az PowerShell module](https://docs.microsoft.com/en-us/powershell/azure/install-az-ps)
+
+![](blobs/PowerShell.png)
+
+5. [Install Bicep tools & Azure CLI](https://docs.microsoft.com/en-us/azure/azure-resource-manager/bicep/install)
+
+ You must have Azure CLI version 2.20.0 or later installed.
+ 
+ You can install the Bicep CLI and add it to your PATH. [You must manually install](https://docs.microsoft.com/en-us/azure/azure-resource-manager/bicep/install#install-manually) for any use other than Azure CLI. 
+ 
+ Supported OS’s are Linux, MacOS, Windows
+
+![](blobs/Bicep.png)
+
+
+
+
+
+
 ### Deployment of Azure resources
 
 Run the `_deploy-AzureBicepResources.ps1` file in the [Deployment of Azure resources](/Deployment%20of%20Azure%20resources/) folder.

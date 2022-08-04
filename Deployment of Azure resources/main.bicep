@@ -2,12 +2,14 @@ targetScope = 'managementGroup'
 @secure()
 param secret_vm_password string = ''
 
+param vm_username string = ''
+
 // Resource Groups
 var resourceGroups_var = [
   {
     name: 'Company_RG_01'
     location: 'australiaeast'
-    resourceGroupName: 'Company_Tier1'
+    resourceGroupName: 'Company_Identity'
   }
   {
     name: 'Company_RG_02'
@@ -83,7 +85,7 @@ var virtualMachine_var = [
     virtualMachineName: 'LA-Test-DCR-01'
     networkInterfaceName: nics_var[0].networkInterfaceName
     networkInterfaceResourceGroupName: resourceGroups_var[3].resourceGroupName
-    adminUsername: 'marckean'
+    adminUsername: vm_username
     adminPassword: secret_vm_password
     virtualMachineSize: 'Standard_B2ms'
   }
@@ -92,7 +94,7 @@ var virtualMachine_var = [
     virtualMachineName: 'LA-Test-DCR-02'
     networkInterfaceName: nics_var[1].networkInterfaceName
     networkInterfaceResourceGroupName: resourceGroups_var[3].resourceGroupName
-    adminUsername: 'marckean'
+    adminUsername: vm_username
     adminPassword: secret_vm_password
     virtualMachineSize: 'Standard_B2ms'
   }
@@ -260,6 +262,7 @@ module nic_module './network_interface_card.bicep' = [for nic in nics_var: {
   }
   dependsOn: [
     resourceGroupModule
+    virtual_Network_with_subnet_Module
   ]
 }]
 
@@ -289,6 +292,9 @@ module PIP_module './public_IP_address.bicep' = {
     location: resourceGroups_var[0].location
     name: 'Company_PIP'
   }
+  dependsOn: [
+    resourceGroupModule
+  ]
 }
 
 // Resource Group scope
@@ -302,6 +308,7 @@ module bastion_01 './bastion.bicep' = {
     azureBastionPublicIpName: PIP_module.outputs.name
   }
   dependsOn: [
+    resourceGroupModule
     virtual_Network_with_subnet_Module
   ]
 }

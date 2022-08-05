@@ -708,18 +708,6 @@
                                             {
                                                 "allOf": [
                                                     {
-                                                        "field": "Microsoft.Compute/imagePublisher",
-                                                        "equals": "MicrosoftWindowsServer"
-                                                    },
-                                                    {
-                                                        "field": "Microsoft.Compute/imageSKU",
-                                                        "notLike": "2008*"
-                                                    }
-                                                ]
-                                            },
-                                            {
-                                                "allOf": [
-                                                    {
                                                         "anyOf": [
                                                             {
                                                                 "field": "Microsoft.Compute/virtualMachines/osProfile.windowsConfiguration",

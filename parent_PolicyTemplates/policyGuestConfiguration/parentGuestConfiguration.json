@@ -1,0 +1,89 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-08-01/managementGroupDeploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "metadata": {
+        "_generator": {
+            "name": "bicep",
+            "version": "0.5.6.12127",
+            "templateHash": "1532257987028557958"
+        }
+    },
+    "parameters": {
+        "targetMG": {
+            "type": "string",
+            "defaultValue": "8efecb12-cbaa-4612-b850-e6a68c14d336",
+            "metadata": {
+                "description": "Target Management Group"
+            }
+        },
+        "targetSubID": {
+            "type": "string",
+            "defaultValue": "7ac51792-8ea1-4ea8-be56-eb515e42aadf",
+            "metadata": {
+                "description": "Target Management Group"
+            }
+        },
+        "targetRegion": {
+            "type": "string",
+            "defaultValue": "australiaeast",
+            "metadata": {
+                "description": "Target Management Group"
+            }
+        },
+        "TS_resourceGroupName": {
+            "type": "string",
+            "defaultValue": "TemplateSpecs",
+            "metadata": {
+                "description": "Template Specs Resource Group Name"
+            }
+        }
+    },
+    "variables": {
+        "DefMgmtGroupID": "[tenantResourceId('Microsoft.Management/managementGroups', parameters('targetMG'))]",
+        "policyDefinitionName01": "GuestConfig_User-Assigned Identity",
+        "policyDefinitionName02": "GuestConfig__DeployWindowsExtension",
+        "policyDefinitionName03": "GuestConfig_DeployLinuxExtension"
+
+    },
+    "resources": [
+        { // Management Group Scope - Definitions
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2021-04-01",
+            "name": "nestedMG",
+            "scope": "[variables('DefMgmtGroupID')]",
+            "location": "[parameters('targetRegion')]",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "id": "[resourceId(parameters('targetSubID'), parameters('TS_resourceGroupName'), 'Microsoft.Resources/templateSpecs/versions', 'Child_GuestConfigurationDefinitions', '1.0.0')]"
+                },
+                "parameters": {
+                    "policyDefinitionName01": {"value": "[variables('policyDefinitionName01')]"},
+                    "policyDefinitionName02": {"value": "[variables('policyDefinitionName02')]"},
+                    "policyDefinitionName03": {"value": "[variables('policyDefinitionName03')]"}
+                }
+            }
+        },
+        { // Subscription Scope - Assignments
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2021-04-01",
+            "name": "nestedSub",
+            "subscriptionId": "[parameters('targetSubID')]",
+            "location": "[parameters('targetRegion')]",
+            "properties": {                
+                "mode": "Incremental",
+                "templateLink": {
+                    "id": "[resourceId(parameters('targetSubID'), parameters('TS_resourceGroupName'), 'Microsoft.Resources/templateSpecs/versions', 'Child_GuestConfigurationAssignments', '1.0.0')]"
+                },
+                "parameters": {
+                    "policyDefinitionName01": {"value": "[variables('policyDefinitionName01')]"},
+                    "policyDefinitionName02": {"value": "[variables('policyDefinitionName02')]"},
+                    "policyDefinitionName03": {"value": "[variables('policyDefinitionName03')]"},
+                    "DefMgmtGroupID": {"value": "[variables('DefMgmtGroupID')]"}
+
+                }
+            },
+            "dependsOn": [ "[resourceId('Microsoft.Resources/deployments', 'nestedMG')]" ]
+        }
+    ]
+}

@@ -20,4 +20,6 @@ New-AzTemplateSpec `
   -TemplateFile ".\artifacts\policyDefinitions.json" `
   -Force
 
-New-AzManagementGroupDeployment -Location $location -TemplateFile '.\deploy.json' -ManagementGroupId $ManagementGroupId -Verbose -ErrorAction Continue
+$TimeNow = Get-Date -Format yyyyMMdd-hhmm
+
+New-AzManagementGroupDeployment -Location $location -TemplateFile '.\deploy.json' -ManagementGroupId $ManagementGroupId -Name $TimeNow -Verbose -ErrorAction Continue

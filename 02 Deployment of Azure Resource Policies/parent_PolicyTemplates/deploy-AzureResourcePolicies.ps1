@@ -5,21 +5,21 @@ param (
 )
 
 New-AzTemplateSpec `
-  -Name 'TS_policyAssignments' `
-  -Version "2.0.2" `
+  -Name 'Child_AzureResourceAssignments' `
+  -Version "1.0.0" `
   -ResourceGroupName $ts_resourcegroupname `
   -Location $location `
-  -TemplateFile ".\artifacts\policyAssignments.json" `
+  -TemplateFile ".\02 Deployment of Azure Resource Policies\child_PolicyTemplates\policyAssignments.json" `
   -Force
 
   New-AzTemplateSpec `
-  -Name 'TS_policyDefinitions' `
-  -Version "2.0.2" `
+  -Name 'Child_AzureResourceDefinitions' `
+  -Version "1.0.0" `
   -ResourceGroupName $ts_resourcegroupname `
   -Location $location `
-  -TemplateFile ".\artifacts\policyDefinitions.json" `
+  -TemplateFile ".\02 Deployment of Azure Resource Policies\child_PolicyTemplates\policyDefinitions.json" `
   -Force
 
 $TimeNow = Get-Date -Format yyyyMMdd-hhmm
 
-New-AzManagementGroupDeployment -Location $location -TemplateFile '.\deploy.json' -ManagementGroupId $ManagementGroupId -Name $TimeNow -Verbose -ErrorAction Continue
+New-AzManagementGroupDeployment -Location $location -TemplateFile '.\02 Deployment of Azure Resource Policies\parent_PolicyTemplates\parentAzurePolicies.json' -ManagementGroupId $ManagementGroupId -Name $TimeNow -Verbose -ErrorAction Continue

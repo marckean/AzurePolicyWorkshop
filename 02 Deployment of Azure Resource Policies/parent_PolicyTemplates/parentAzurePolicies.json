@@ -56,7 +56,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "id": "[resourceId(parameters('targetSubID'), parameters('TS_resourceGroupName'), 'Microsoft.Resources/templateSpecs/versions', 'TS_policyDefinitions', '2.0.2')]"
+                    "id": "[resourceId(parameters('targetSubID'), parameters('TS_resourceGroupName'), 'Microsoft.Resources/templateSpecs/versions', 'Child_AzureResourceDefinitions', '1.0.0')]"
                 },
                 "parameters": {
                     "policyDefinitionName01": {"value": "[variables('policyDefinitionName01')]"},
@@ -76,7 +76,7 @@
             "properties": {                
                 "mode": "Incremental",
                 "templateLink": {
-                    "id": "[resourceId(parameters('targetSubID'), parameters('TS_resourceGroupName'), 'Microsoft.Resources/templateSpecs/versions', 'TS_policyAssignments', '2.0.2')]"
+                    "id": "[resourceId(parameters('targetSubID'), parameters('TS_resourceGroupName'), 'Microsoft.Resources/templateSpecs/versions', 'Child_AzureResourceAssignments', '1.0.0')]"
                 },
                 "parameters": {
                     "policyDefinitionName01": {"value": "[variables('policyDefinitionName01')]"},

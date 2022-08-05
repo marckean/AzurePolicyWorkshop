@@ -9,7 +9,7 @@ New-AzTemplateSpec `
   -Version "1.0.0" `
   -ResourceGroupName $ts_resourcegroupname `
   -Location $location `
-  -TemplateFile ".\child_PolicyTemplates\guestConfigurationPolicies\policyAssignments.json" `
+  -TemplateFile ".\03 Deployment of Guest Config Policies\child_PolicyTemplates\policyAssignments.json" `
   -Force
 
   New-AzTemplateSpec `
@@ -17,9 +17,9 @@ New-AzTemplateSpec `
   -Version "1.0.0" `
   -ResourceGroupName $ts_resourcegroupname `
   -Location $location `
-  -TemplateFile ".\child_PolicyTemplates\guestConfigurationPolicies\policyDefinitions.json" `
+  -TemplateFile ".\03 Deployment of Guest Config Policies\child_PolicyTemplates\policyDefinitions.json" `
   -Force
 
 $TimeNow = Get-Date -Format yyyyMMdd-hhmm
 
-New-AzManagementGroupDeployment -Location $location -TemplateFile '.\parent_PolicyTemplates\policyGuestConfiguration\parentGuestConfiguration.json' -ManagementGroupId $ManagementGroupId -Name $TimeNow -Verbose -ErrorAction Continue
+New-AzManagementGroupDeployment -Location $location -TemplateFile '.\03 Deployment of Guest Config Policies\parent_PolicyTemplates\parentGuestConfiguration.json' -ManagementGroupId $ManagementGroupId -Name $TimeNow -Verbose -ErrorAction Continue

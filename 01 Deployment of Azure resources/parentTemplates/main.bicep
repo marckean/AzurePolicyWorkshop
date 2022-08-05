@@ -128,7 +128,7 @@ var storageAccounts = [
 //https://docs.microsoft.com/en-us/azure/azure-resource-manager/bicep/deploy-to-management-group?tabs=azure-cli
 
 // Subscription scope
-module resourceGroupModule './resource-group.bicep' = [for RG in resourceGroups_var: {
+module resourceGroupModule '../childTemplates/resource-group.bicep' = [for RG in resourceGroups_var: {
   name: RG.name
   scope: subscription(subscriptionID)
   params: {
@@ -140,7 +140,7 @@ module resourceGroupModule './resource-group.bicep' = [for RG in resourceGroups_
 // Subscription scope
 
 // Resource Group scope
-module storageAcct './storage-account.bicep' = [for storageAccount in storageAccounts: {
+module storageAcct '../childTemplates/storage-account.bicep' = [for storageAccount in storageAccounts: {
   name: storageAccount.name
   scope: resourceGroup(subscriptionID, resourceGroups_var[4].resourceGroupName)
   params: {
@@ -158,7 +158,7 @@ module storageAcct './storage-account.bicep' = [for storageAccount in storageAcc
 }]
 
 // Resource Group scope
-module userAssignedIdentity_01 './userAssignedIdentity.bicep' = {
+module userAssignedIdentity_01 '../childTemplates/userAssignedIdentity.bicep' = {
   name: 'Company_userAssignedIdentity_01'
   scope: resourceGroup(subscriptionID, resourceGroups_var[0].resourceGroupName)
   params: {
@@ -168,7 +168,7 @@ module userAssignedIdentity_01 './userAssignedIdentity.bicep' = {
 }
 
 // Resource Group scope
-module userAssignedIdentity_02 './userAssignedIdentity.bicep' = {
+module userAssignedIdentity_02 '../childTemplates/userAssignedIdentity.bicep' = {
   name: 'Company_userAssignedIdentity_02'
   scope: resourceGroup(subscriptionID, resourceGroups_var[0].resourceGroupName)
   params: {
@@ -178,7 +178,7 @@ module userAssignedIdentity_02 './userAssignedIdentity.bicep' = {
 }
 
 // Management Group scope
-module roleAssignment_01 './roleAssignment.bicep' = {
+module roleAssignment_01 '../childTemplates/roleAssignment.bicep' = {
   name: 'Company_roleAssignment_01'
   scope: managementGroup(ManagemantGroup)
   params: {
@@ -187,7 +187,7 @@ module roleAssignment_01 './roleAssignment.bicep' = {
 }
 
 // Resource Group scope
-module nsg1 './nsg_rules.bicep' = {
+module nsg1 '../childTemplates/nsg_rules.bicep' = {
   scope: resourceGroup(subscriptionID, resourceGroups_var[3].resourceGroupName)
   name: 'Company_NSG_01'
   params: {
@@ -199,7 +199,7 @@ module nsg1 './nsg_rules.bicep' = {
 }
 
 // Resource Group scope
-module kv1 './KeyVault.bicep' = {
+module kv1 '../childTemplates/KeyVault.bicep' = {
   scope: resourceGroup(subscriptionID, resourceGroups_var[1].resourceGroupName)
   name: 'Company_KeyVault_01'
   params: {
@@ -213,7 +213,7 @@ module kv1 './KeyVault.bicep' = {
 }
 
 // Resource Group scope
-module la1 './log-analytics.bicep' = {
+module la1 '../childTemplates/log-analytics.bicep' = {
   scope: resourceGroup(subscriptionID, resourceGroups_var[1].resourceGroupName)
   name: 'Company_LogAnalytics_01'
   params: {
@@ -225,7 +225,7 @@ module la1 './log-analytics.bicep' = {
 }
 
 // Subscription Group scope
-module pa1 './policy_assignments.bicep' = {
+module pa1 '../childTemplates/policy_assignments.bicep' = {
   //scope: subscription(subscriptionID)
   scope: resourceGroup(subscriptionID, resourceGroups_var[2].resourceGroupName)
   name: 'Company_PolicyAssignment_01'
@@ -236,7 +236,7 @@ module pa1 './policy_assignments.bicep' = {
 }
 
 // Resource Group scope
-module virtual_Network_with_subnet_Module './virtual_network_with_subnet.bicep' = [for virtualNetwork in virtualNetworks_var: {
+module virtual_Network_with_subnet_Module '../childTemplates/virtual_network_with_subnet.bicep' = [for virtualNetwork in virtualNetworks_var: {
   scope: resourceGroup(subscriptionID, resourceGroups_var[3].resourceGroupName)
   name: virtualNetwork.name
   params: {
@@ -251,7 +251,7 @@ module virtual_Network_with_subnet_Module './virtual_network_with_subnet.bicep' 
 }]
 
 // Resource Group scope
-module nic_module './network_interface_card.bicep' = [for nic in nics_var: {
+module nic_module '../childTemplates/network_interface_card.bicep' = [for nic in nics_var: {
   scope: resourceGroup(subscriptionID, resourceGroups_var[3].resourceGroupName)
   name: nic.name
   params: {
@@ -267,7 +267,7 @@ module nic_module './network_interface_card.bicep' = [for nic in nics_var: {
 }]
 
 // Resource Group scope
-module virtualMachine_module './virtual_machine.bicep' = [for virtualMachine in virtualMachine_var: {
+module virtualMachine_module '../childTemplates/virtual_machine.bicep' = [for virtualMachine in virtualMachine_var: {
   scope: resourceGroup(subscriptionID, resourceGroups_var[2].resourceGroupName)
   name: virtualMachine.name
   params: {
@@ -285,7 +285,7 @@ module virtualMachine_module './virtual_machine.bicep' = [for virtualMachine in 
 }]
 
 // Resource Group scope
-module PIP_module './public_IP_address.bicep' = {
+module PIP_module '../childTemplates/public_IP_address.bicep' = {
   scope: resourceGroup(subscriptionID, resourceGroups_var[3].resourceGroupName)
   name: 'Company_BastionPIP_01'
   params: {
@@ -298,7 +298,7 @@ module PIP_module './public_IP_address.bicep' = {
 }
 
 // Resource Group scope
-module bastion_01 './bastion.bicep' = {
+module bastion_01 '../childTemplates/bastion.bicep' = {
   scope: resourceGroup(subscriptionID, resourceGroups_var[3].resourceGroupName)
   name: 'Company_Bastion_01'
   params: {

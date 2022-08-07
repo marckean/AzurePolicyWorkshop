@@ -156,6 +156,26 @@
                         "parallelDeployments": 10,
                         "resourceCount": 500
                     }
+                },
+                { // Four
+                    "PolicyAssignmentName": "AssDenyCustRole",
+                    "location": "[parameters('location')]",
+                    "policyAssignmentProperties": {
+                        "displayName": "Deny deployment of a custom role which has the same permissions as the built-in owner role",
+                        "enforcementMode": "Default",
+                        "policyDefinitionId": "[extensionResourceId(variables('DefMgmtGroupLoc'), 'Microsoft.Authorization/policyDefinitions', parameters('policyDefinitionName03'))]",
+                        "nonComplianceMessages": "Cannot deploy a custom role that has the same permissions as the built-in owner role"
+                    }
+                },
+                { // Five
+                    "PolicyAssignmentName": "AssDenyNSG_Rules",
+                    "location": "[parameters('location')]",
+                    "policyAssignmentProperties": {
+                        "displayName": "Deny deployment of an NSG that contains NSG rules with port 22 or 3389 as destination ports",
+                        "enforcementMode": "Default",
+                        "policyDefinitionId": "[extensionResourceId(variables('DefMgmtGroupLoc'), 'Microsoft.Authorization/policyDefinitions', parameters('policyDefinitionName05'))]",
+                        "nonComplianceMessages": "Azure KeyVault must adhere to strict governance"
+                    }
                 }
             ]
         }
@@ -198,9 +218,13 @@
                 "policyAssignmentCopy"
             ],
             "properties": {
-                "roleDefinitionId": "[variables('policies').policyAssignments[copyIndex()].roleAssignmentProperties.roleDefinitionId]",
-                "principalType": "[variables('policies').policyAssignments[copyIndex()].roleAssignmentProperties.principalType]",
-                "principalId": "[reference(resourceId('Microsoft.Authorization/policyAssignments', variables('policies').policyAssignments[copyIndex()].PolicyAssignmentName), '2021-06-01', 'full').identity.principalId]"
+                "roleDefinitionId": "[if(contains(variables('policies').policyAssignments[copyIndex()].roleAssignmentProperties,
+                 'roleDefinitionId'),
+                  variables('policies').policyAssignments[copyIndex()].roleAssignmentProperties.roleDefinitionId,
+                  '')]",
+                "principalType": "[if(contains(variables('policies').policyAssignments[copyIndex()].roleAssignmentProperties, 'principalType'), variables('policies').policyAssignments[copyIndex()].roleAssignmentProperties.principalType, '')]",
+                "principalId": "[if(contains(variables('policies').policyAssignments[copyIndex()].roleAssignmentProperties, 'roleDefinitionId'), reference(resourceId('Microsoft.Authorization/policyAssignments', variables('policies').policyAssignments[copyIndex()].PolicyAssignmentName), '2021-06-01', 'full').identity.principalId, '')]"
+                //"principalId": "[reference(resourceId('Microsoft.Authorization/policyAssignments', variables('policies').policyAssignments[copyIndex()].PolicyAssignmentName), '2021-06-01', 'full').identity.principalId]"
             }
         },
         { // https://docs.microsoft.com/en-us/azure/templates/microsoft.policyinsights/2019-07-01/remediations?tabs=json#remediationfilters
@@ -213,49 +237,42 @@
             },
             "properties": {
                 "filters": {
-                    "locations": "[variables('policies').policyAssignments[copyIndex()].remediationProperties.locations]"
+                    "locations": "[if(contains(variables('policies').policyAssignments[copyIndex()].remediationProperties,
+                 'locations'),
+                  variables('policies').policyAssignments[copyIndex()].remediationProperties.locations,
+                  '')]"
                 },
-                "policyAssignmentId": "[variables('policies').policyAssignments[copyIndex()].remediationProperties.policyAssignmentId]",
-                "policyDefinitionReferenceId": "[variables('policies').policyAssignments[copyIndex()].remediationProperties.policyDefinitionReferenceId]",
-                "resourceDiscoveryMode": "[variables('policies').policyAssignments[copyIndex()].remediationProperties.resourceDiscoveryMode]",
+                "policyAssignmentId": "[if(contains(variables('policies').policyAssignments[copyIndex()].remediationProperties,
+                 'policyAssignmentId'),
+                  variables('policies').policyAssignments[copyIndex()].remediationProperties.policyAssignmentId,
+                  '')]",
+                "policyDefinitionReferenceId": "[if(contains(variables('policies').policyAssignments[copyIndex()].remediationProperties,
+                 'policyDefinitionReferenceId'),
+                  variables('policies').policyAssignments[copyIndex()].remediationProperties.policyDefinitionReferenceId,
+                  '')]",
+                "resourceDiscoveryMode": "[if(contains(variables('policies').policyAssignments[copyIndex()].remediationProperties,
+                 'resourceDiscoveryMode'),
+                  variables('policies').policyAssignments[copyIndex()].remediationProperties.resourceDiscoveryMode,
+                  '')]",
                 "failureThreshold": {
-                    "percentage": "[variables('policies').policyAssignments[copyIndex()].remediationProperties.failureThreshold.percentage]"
+                    "percentage": "[if(contains(variables('policies').policyAssignments[copyIndex()].remediationProperties,
+                 'failureThreshold'),
+                  variables('policies').policyAssignments[copyIndex()].remediationProperties.failureThreshold.percentage,
+                  '')]"
                 },
-                "parallelDeployments": "[variables('policies').policyAssignments[copyIndex()].remediationProperties.parallelDeployments]",
-                "resourceCount": "[variables('policies').policyAssignments[copyIndex()].remediationProperties.resourceCount]"
+                "parallelDeployments": "[if(contains(variables('policies').policyAssignments[copyIndex()].remediationProperties,
+                 'parallelDeployments'),
+                  variables('policies').policyAssignments[copyIndex()].remediationProperties.parallelDeployments,
+                  '')]",
+                "resourceCount": "[if(contains(variables('policies').policyAssignments[copyIndex()].remediationProperties,
+                 'resourceCount'),
+                  variables('policies').policyAssignments[copyIndex()].remediationProperties.resourceCount,
+                  '')]"
             },
             "dependsOn": [
                 "roleAssignmentCopy",
                 "policyAssignmentCopy"
             ]
-        },
-        { // Policy assignment, only with no remediation, deny only, not using CopyIndex
-            "type": "Microsoft.Authorization/policyAssignments",
-            "apiVersion": "2020-09-01",
-            "name": "AssDenyCustRole",
-            "location": "[parameters('location')]",
-            "identity": {
-                "type": "SystemAssigned"
-            },
-            "properties": {
-                "displayName": "Deny deployment of a custom role which has the same permissions as the built-in owner role",
-                "enforcementMode": "Default",
-                "policyDefinitionId": "[extensionResourceId(variables('DefMgmtGroupLoc'), 'Microsoft.Authorization/policyDefinitions', parameters('policyDefinitionName03'))]"
-            }
-        },
-        { // Policy assignment, only with no remediation, deny only, not using CopyIndex
-            "type": "Microsoft.Authorization/policyAssignments",
-            "apiVersion": "2020-09-01",
-            "name": "AssDenyNSG_Rules",
-            "location": "[parameters('location')]",
-            "identity": {
-                "type": "SystemAssigned"
-            },
-            "properties": {
-                "displayName": "Deny deployment of an NSG that contains NSG rules with port 22 or 3389 as destination ports",
-                "enforcementMode": "Default",
-                "policyDefinitionId": "[extensionResourceId(variables('DefMgmtGroupLoc'), 'Microsoft.Authorization/policyDefinitions', parameters('policyDefinitionName05'))]"
-            }
         }
     ]
 }

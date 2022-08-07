@@ -12,5 +12,5 @@ $paramObject = @{
   }
 
 # All test Azure resources
-New-AzManagementGroupDeployment -Location $location -TemplateFile '../parentTemplates/main.bicep' -ManagementGroupId $ManagementGroupId -Name $TimeNow -TemplateParameterObject $paramObject -Verbose
+New-AzManagementGroupDeployment -Location $location -TemplateFile './01 Deployment of Azure resources\parentTemplates\main.bicep' -ManagementGroupId $ManagementGroupId -Name $TimeNow -TemplateParameterObject $paramObject -Verbose
 

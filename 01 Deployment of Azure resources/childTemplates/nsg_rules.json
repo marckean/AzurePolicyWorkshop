@@ -1,0 +1,265 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "metadata": {
+    "_generator": {
+      "name": "bicep",
+      "version": "0.7.4.23292",
+      "templateHash": "7037546329576722828"
+    }
+  },
+  "parameters": {
+    "location": {
+      "type": "string",
+      "defaultValue": "[resourceGroup().location]"
+    }
+  },
+  "variables": {
+    "securityRules": [
+      {
+        "name": "Allow_RDP1-S",
+        "description": "Allow RDP",
+        "protocol": "*",
+        "sourcePortRange": "3389",
+        "destinationPortRange": "3389",
+        "sourceAddressPrefix": "*",
+        "destinationAddressPrefix": "*",
+        "access": "Allow",
+        "priority": 100,
+        "direction": "Inbound"
+      },
+      {
+        "name": "Allow_RDP3-S",
+        "description": "Allow RDP",
+        "protocol": "*",
+        "sourcePortRange": "3380-3389",
+        "destinationPortRange": "3389",
+        "sourceAddressPrefix": "*",
+        "destinationAddressPrefix": "*",
+        "access": "Allow",
+        "priority": 120,
+        "direction": "Inbound"
+      },
+      {
+        "name": "Allow_RDP4-D",
+        "description": "Allow RDP",
+        "protocol": "*",
+        "sourcePortRange": "*",
+        "destinationPortRange": "3380-3389",
+        "sourceAddressPrefix": "*",
+        "destinationAddressPrefix": "*",
+        "access": "Allow",
+        "priority": 130,
+        "direction": "Inbound"
+      },
+      {
+        "name": "Allow_RDP6-D",
+        "description": "Allow RDP",
+        "protocol": "*",
+        "sourcePortRange": "*",
+        "destinationPortRange": "3389",
+        "sourceAddressPrefix": "*",
+        "destinationAddressPrefix": "*",
+        "access": "Allow",
+        "priority": 150,
+        "direction": "Inbound"
+      },
+      {
+        "name": "Allow_RDP7-D",
+        "description": "Allow RDP",
+        "protocol": "*",
+        "sourcePortRange": "*",
+        "destinationPortRange": "3389",
+        "sourceAddressPrefix": "164.97.246.192",
+        "destinationAddressPrefix": "*",
+        "access": "Allow",
+        "priority": 160,
+        "direction": "Inbound"
+      },
+      {
+        "name": "Allow_RDP8-D",
+        "description": "Allow RDP",
+        "protocol": "*",
+        "sourcePortRange": "*",
+        "destinationPortRange": "3389",
+        "sourceAddressPrefix": "164.97.246.192/28",
+        "destinationAddressPrefix": "*",
+        "access": "Allow",
+        "priority": 170,
+        "direction": "Inbound"
+      },
+      {
+        "name": "Allow_SSH1-S",
+        "description": "Allow SSH",
+        "protocol": "*",
+        "sourcePortRange": "22",
+        "destinationPortRange": "22",
+        "sourceAddressPrefix": "*",
+        "destinationAddressPrefix": "*",
+        "access": "Allow",
+        "priority": 200,
+        "direction": "Inbound"
+      },
+      {
+        "name": "Allow_SSH3-S",
+        "description": "Allow SSH",
+        "protocol": "*",
+        "sourcePortRange": "20-22",
+        "destinationPortRange": "22",
+        "sourceAddressPrefix": "*",
+        "destinationAddressPrefix": "*",
+        "access": "Allow",
+        "priority": 220,
+        "direction": "Inbound"
+      },
+      {
+        "name": "Allow_SSH4-D",
+        "description": "Allow SSH",
+        "protocol": "*",
+        "sourcePortRange": "*",
+        "destinationPortRange": "20-22",
+        "sourceAddressPrefix": "*",
+        "destinationAddressPrefix": "*",
+        "access": "Allow",
+        "priority": 230,
+        "direction": "Inbound"
+      },
+      {
+        "name": "Allow_SSH6-D",
+        "description": "Allow SSH",
+        "protocol": "*",
+        "sourcePortRange": "*",
+        "destinationPortRange": "22",
+        "sourceAddressPrefix": "*",
+        "destinationAddressPrefix": "*",
+        "access": "Allow",
+        "priority": 250,
+        "direction": "Inbound"
+      },
+      {
+        "name": "Allow_SSH7-D",
+        "description": "Allow SSH",
+        "protocol": "*",
+        "sourcePortRange": "*",
+        "destinationPortRange": "22",
+        "sourceAddressPrefix": "164.97.246.192",
+        "destinationAddressPrefix": "*",
+        "access": "Allow",
+        "priority": 260,
+        "direction": "Inbound"
+      },
+      {
+        "name": "Allow_SSH8-D",
+        "description": "Allow SSH",
+        "protocol": "*",
+        "sourcePortRange": "*",
+        "destinationPortRange": "22",
+        "sourceAddressPrefix": "164.97.246.192/28",
+        "destinationAddressPrefix": "*",
+        "access": "Allow",
+        "priority": 270,
+        "direction": "Inbound"
+      },
+      {
+        "name": "Allow_RDP2-S",
+        "description": "Allow RDP",
+        "protocol": "*",
+        "sourcePortRanges": [
+          "3380",
+          "3389"
+        ],
+        "destinationPortRange": "3380-3389",
+        "sourceAddressPrefix": "Internet",
+        "destinationAddressPrefix": "*",
+        "access": "Allow",
+        "priority": 110,
+        "direction": "Inbound"
+      },
+      {
+        "name": "Allow_SSH2-S",
+        "description": "Allow SSH",
+        "protocol": "*",
+        "sourcePortRanges": [
+          "21",
+          "22"
+        ],
+        "destinationPortRange": "21-22",
+        "sourceAddressPrefix": "Internet",
+        "destinationAddressPrefix": "*",
+        "access": "Allow",
+        "priority": 210,
+        "direction": "Inbound"
+      },
+      {
+        "name": "Allow_RDP5-D",
+        "description": "Allow RDP",
+        "protocol": "*",
+        "sourcePortRange": "*",
+        "destinationPortRanges": [
+          "3380",
+          "3389"
+        ],
+        "sourceAddressPrefix": "*",
+        "destinationAddressPrefix": "*",
+        "access": "Allow",
+        "priority": 140,
+        "direction": "Inbound"
+      },
+      {
+        "name": "Allow_SSH5-D",
+        "description": "Allow SSH",
+        "protocol": "*",
+        "sourcePortRange": "*",
+        "destinationPortRanges": [
+          "21",
+          "22"
+        ],
+        "sourceAddressPrefix": "*",
+        "destinationAddressPrefix": "*",
+        "access": "Allow",
+        "priority": 240,
+        "direction": "Inbound"
+      }
+    ]
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Network/networkSecurityGroups",
+      "apiVersion": "2021-08-01",
+      "name": "nsg1",
+      "location": "[parameters('location')]",
+      "properties": {}
+    },
+    {
+      "copy": {
+        "name": "nsgrules1",
+        "count": "[length(variables('securityRules'))]"
+      },
+      "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+      "apiVersion": "2021-08-01",
+      "name": "[format('{0}/{1}', 'nsg1', variables('securityRules')[copyIndex()].name)]",
+      "properties": {
+        "description": "[if(contains(variables('securityRules')[copyIndex()], 'description'), variables('securityRules')[copyIndex()].description, '')]",
+        "direction": "[if(contains(variables('securityRules')[copyIndex()], 'direction'), variables('securityRules')[copyIndex()].direction, '')]",
+        "protocol": "[if(contains(variables('securityRules')[copyIndex()], 'protocol'), variables('securityRules')[copyIndex()].protocol, '')]",
+        "access": "[if(contains(variables('securityRules')[copyIndex()], 'access'), variables('securityRules')[copyIndex()].access, '')]",
+        "destinationPortRange": "[if(contains(variables('securityRules')[copyIndex()], 'destinationPortRange'), variables('securityRules')[copyIndex()].destinationPortRange, '')]",
+        "destinationPortRanges": "[if(contains(variables('securityRules')[copyIndex()], 'destinationPortRanges'), variables('securityRules')[copyIndex()].destinationPortRanges, createArray())]",
+        "sourcePortRange": "[if(contains(variables('securityRules')[copyIndex()], 'sourcePortRange'), variables('securityRules')[copyIndex()].sourcePortRange, '')]",
+        "sourcePortRanges": "[if(contains(variables('securityRules')[copyIndex()], 'sourcePortRanges'), variables('securityRules')[copyIndex()].sourcePortRanges, createArray())]",
+        "destinationAddressPrefix": "[if(contains(variables('securityRules')[copyIndex()], 'destinationAddressPrefix'), variables('securityRules')[copyIndex()].destinationAddressPrefix, '')]",
+        "sourceAddressPrefix": "[if(contains(variables('securityRules')[copyIndex()], 'sourceAddressPrefix'), variables('securityRules')[copyIndex()].sourceAddressPrefix, '')]",
+        "priority": "[if(contains(variables('securityRules')[copyIndex()], 'priority'), variables('securityRules')[copyIndex()].priority, '')]"
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/networkSecurityGroups', 'nsg1')]"
+      ]
+    }
+  ],
+  "outputs": {
+    "nsg": {
+      "type": "string",
+      "value": "[resourceId('Microsoft.Network/networkSecurityGroups', 'nsg1')]"
+    }
+  }
+}

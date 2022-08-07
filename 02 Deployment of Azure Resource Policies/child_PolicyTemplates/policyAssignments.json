@@ -185,7 +185,10 @@
             "type": "Microsoft.Authorization/policyAssignments",
             "apiVersion": "2020-09-01",
             "location": "[variables('policies').policyAssignments[copyIndex()].location]",
-            "name": "[variables('policies').policyAssignments[copyIndex()].PolicyAssignmentName]",
+            "name": "[if(contains(variables('policies').policyAssignments[copyIndex()],
+                 'PolicyAssignmentName'),
+                  variables('policies').policyAssignments[copyIndex()].PolicyAssignmentName,
+                  '')]",
             "copy": {
                 "name": "policyAssignmentCopy",
                 "count": "[length(variables('policies').policyAssignments)]"
@@ -209,7 +212,10 @@
         {
             "type": "Microsoft.Authorization/roleAssignments",
             "apiVersion": "2020-10-01-preview",
-            "name": "[variables('policies').policyAssignments[copyIndex()].RoleAssignmentName]",
+            "name": "[if(contains(variables('policies').policyAssignments[copyIndex()],
+                 'RoleAssignmentName'),
+                  variables('policies').policyAssignments[copyIndex()].RoleAssignmentName,
+                  '')]",
             "copy": {
                 "name": "roleAssignmentCopy",
                 "count": "[length(variables('policies').policyAssignments)]"
@@ -230,7 +236,10 @@
         { // https://docs.microsoft.com/en-us/azure/templates/microsoft.policyinsights/2019-07-01/remediations?tabs=json#remediationfilters
             "type": "Microsoft.PolicyInsights/remediations",
             "apiVersion": "2021-10-01",
-            "name": "[variables('policies').policyAssignments[copyIndex()].RemediationName]",
+            "name": "[if(contains(variables('policies').policyAssignments[copyIndex()],
+                 'RemediationName'),
+                  variables('policies').policyAssignments[copyIndex()].RemediationName,
+                  '')]",
             "copy": {
                 "name": "policyRemediationsCopy",
                 "count": "[length(variables('policies').policyAssignments)]"

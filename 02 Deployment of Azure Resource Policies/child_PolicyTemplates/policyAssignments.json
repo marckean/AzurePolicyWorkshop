@@ -130,6 +130,7 @@
             "roleAssignments": [
                 { // One
                     "RoleAssignmentName": "[guid('RoleAssignment', 'AssSecTransStgAcct', uniqueString(subscription().displayName))]",
+                    "PolicyAssignmentName": "AssSecTransStgAcct",
                     "roleAssignmentProperties": {
                         "roleDefinitionId": "[variables(parameters('StorageBuiltInRoleName'))]",
                         "principalType": "ServicePrincipal"
@@ -137,6 +138,7 @@
                 },
                 { // Two
                     "RoleAssignmentName": "[guid('RoleAssignment', 'AssNoRDPSSHInt', uniqueString(subscription().displayName))]",
+                    "PolicyAssignmentName": "AssNoRDPSSHInt",
                     "roleAssignmentProperties": {
                         "roleDefinitionId": "[variables(parameters('NetworkBuiltInRoleName'))]",
                         "principalType": "ServicePrincipal"
@@ -144,6 +146,7 @@
                 },
                 { // Three
                     "RoleAssignmentName": "[guid('RoleAssignment', 'AssKeyVault', uniqueString(subscription().displayName))]",
+                    "PolicyAssignmentName": "AssKeyVault",
                     "roleAssignmentProperties": {
                         "roleDefinitionId": "[variables(parameters('ContributorKeyVaultBuiltInRoleName'))]",
                         "principalType": "ServicePrincipal"

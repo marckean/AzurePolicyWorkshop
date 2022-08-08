@@ -78,83 +78,32 @@
             "policyAssignments": [
                 { // One
                     "PolicyAssignmentName": "AssSecTransStgAcct",
-                    "RoleAssignmentName": "[guid('RoleAssignment', 'AssSecTransStgAcct', uniqueString(subscription().displayName))]",
-                    "RemediationName": "[guid('Remediate', 'AssSecTransStgAcct', subscription().displayName)]",
                     "location": "[parameters('location')]",
                     "policyAssignmentProperties": {
                         "displayName": "Secure transfer to storage accounts should be enabled",
                         "enforcementMode": "Default",
                         "policyDefinitionId": "[extensionResourceId(variables('DefMgmtGroupLoc'), 'Microsoft.Authorization/policyDefinitions', parameters('policyDefinitionName01'))]",
                         "nonComplianceMessages": "Storage accounts must be secured at all times"
-                    },
-                    "roleAssignmentProperties": {
-                        "roleDefinitionId": "[variables(parameters('StorageBuiltInRoleName'))]",
-                        "principalType": "ServicePrincipal"
-                    },
-                    "remediationProperties": {
-                        "locations": [ "[parameters('location')]" ],
-                        "policyAssignmentId": "[resourceId('Microsoft.Authorization/policyAssignments', 'AssSecTransStgAcct')]",
-                        "policyDefinitionReferenceId": "[extensionResourceId(variables('DefMgmtGroupLoc'), 'Microsoft.Authorization/policyDefinitions', parameters('policyDefinitionName01'))]",
-                        "resourceDiscoveryMode": "ExistingNonCompliant",
-                        "failureThreshold": {
-                            "percentage": 1
-                        },
-                        "parallelDeployments": 10,
-                        "resourceCount": 500
                     }
                 },
                 { // Two
                     "PolicyAssignmentName": "AssNoRDPSSHInt",
-                    "RoleAssignmentName": "[guid('RoleAssignment', 'AssNoRDPSSHInt', uniqueString(subscription().displayName))]",
-                    "RemediationName": "[guid('Remediate', 'AssNoRDPSSHInt', subscription().displayName)]",
                     "location": "[parameters('location')]",
                     "policyAssignmentProperties": {
                         "displayName": "No RDP 3389 or SSH 22 from the internet",
                         "enforcementMode": "Default",
                         "policyDefinitionId": "[extensionResourceId(variables('DefMgmtGroupLoc'), 'Microsoft.Authorization/policyDefinitions', parameters('policyDefinitionName02'))]",
                         "nonComplianceMessages": "Ports 3389 and 22 cannot be allowed inbound from the internet"
-                    },
-                    "roleAssignmentProperties": {
-                        "roleDefinitionId": "[variables(parameters('NetworkBuiltInRoleName'))]",
-                        "principalType": "ServicePrincipal"
-                    },
-                    "remediationProperties": {
-                        "locations": [ "[parameters('location')]" ],
-                        "policyAssignmentId": "[resourceId('Microsoft.Authorization/policyAssignments', 'AssNoRDPSSHInt')]",
-                        "policyDefinitionReferenceId": "[extensionResourceId(variables('DefMgmtGroupLoc'), 'Microsoft.Authorization/policyDefinitions', parameters('policyDefinitionName02'))]",
-                        "resourceDiscoveryMode": "ExistingNonCompliant",
-                        "failureThreshold": {
-                            "percentage": 1
-                        },
-                        "parallelDeployments": 10,
-                        "resourceCount": 500
                     }
                 },
                 { // Three
                     "PolicyAssignmentName": "AssKeyVault",
-                    "RoleAssignmentName": "[guid('RoleAssignment', 'AssKeyVault', uniqueString(subscription().displayName))]",
-                    "RemediationName": "[guid('Remediate', 'AssKeyVault', subscription().displayName)]",
                     "location": "[parameters('location')]",
                     "policyAssignmentProperties": {
                         "displayName": "Azure KeyVault desired settings",
                         "enforcementMode": "Default",
                         "policyDefinitionId": "[extensionResourceId(variables('DefMgmtGroupLoc'), 'Microsoft.Authorization/policyDefinitions', parameters('policyDefinitionName04'))]",
                         "nonComplianceMessages": "Azure KeyVault must adhere to strict governance"
-                    },
-                    "roleAssignmentProperties": {
-                        "roleDefinitionId": "[variables(parameters('ContributorKeyVaultBuiltInRoleName'))]",
-                        "principalType": "ServicePrincipal"
-                    },
-                    "remediationProperties": {
-                        "locations": [ "[parameters('location')]" ],
-                        "policyAssignmentId": "[resourceId('Microsoft.Authorization/policyAssignments', 'AssKeyVault')]",
-                        "policyDefinitionReferenceId": "[extensionResourceId(variables('DefMgmtGroupLoc'), 'Microsoft.Authorization/policyDefinitions', parameters('policyDefinitionName04'))]",
-                        "resourceDiscoveryMode": "ExistingNonCompliant",
-                        "failureThreshold": {
-                            "percentage": 1
-                        },
-                        "parallelDeployments": 10,
-                        "resourceCount": 500
                     }
                 },
                 { // Four
@@ -177,8 +126,78 @@
                         "nonComplianceMessages": "Azure KeyVault must adhere to strict governance"
                     }
                 }
-            ]
-        }
+            ],
+            "roleAssignments": [
+                { // One
+                    "RoleAssignmentName": "[guid('RoleAssignment', 'AssSecTransStgAcct', uniqueString(subscription().displayName))]",
+                    "roleAssignmentProperties": {
+                        "roleDefinitionId": "[variables(parameters('StorageBuiltInRoleName'))]",
+                        "principalType": "ServicePrincipal"
+                    }
+                },
+                { // Two
+                    "RoleAssignmentName": "[guid('RoleAssignment', 'AssNoRDPSSHInt', uniqueString(subscription().displayName))]",
+                    "roleAssignmentProperties": {
+                        "roleDefinitionId": "[variables(parameters('NetworkBuiltInRoleName'))]",
+                        "principalType": "ServicePrincipal"
+                    }
+                },
+                { // Three
+                    "RoleAssignmentName": "[guid('RoleAssignment', 'AssKeyVault', uniqueString(subscription().displayName))]",
+                    "roleAssignmentProperties": {
+                        "roleDefinitionId": "[variables(parameters('ContributorKeyVaultBuiltInRoleName'))]",
+                        "principalType": "ServicePrincipal"
+                    }
+                }
+                ],
+            "remediations": [
+                { // One
+                    "RemediationName": "[guid('Remediate', 'AssSecTransStgAcct', subscription().displayName)]",
+                    "location": "[parameters('location')]",
+                    "remediationProperties": {
+                        "locations": [ "[parameters('location')]" ],
+                        "policyAssignmentId": "[resourceId('Microsoft.Authorization/policyAssignments', 'AssSecTransStgAcct')]",
+                        "policyDefinitionReferenceId": "[extensionResourceId(variables('DefMgmtGroupLoc'), 'Microsoft.Authorization/policyDefinitions', parameters('policyDefinitionName01'))]",
+                        "resourceDiscoveryMode": "ExistingNonCompliant",
+                        "failureThreshold": {
+                            "percentage": 1
+                        },
+                        "parallelDeployments": 10,
+                        "resourceCount": 500
+                    }
+                },
+                { // Two
+                    "RemediationName": "[guid('Remediate', 'AssNoRDPSSHInt', subscription().displayName)]",
+                    "location": "[parameters('location')]",
+                    "remediationProperties": {
+                        "locations": [ "[parameters('location')]" ],
+                        "policyAssignmentId": "[resourceId('Microsoft.Authorization/policyAssignments', 'AssNoRDPSSHInt')]",
+                        "policyDefinitionReferenceId": "[extensionResourceId(variables('DefMgmtGroupLoc'), 'Microsoft.Authorization/policyDefinitions', parameters('policyDefinitionName02'))]",
+                        "resourceDiscoveryMode": "ExistingNonCompliant",
+                        "failureThreshold": {
+                            "percentage": 1
+                        },
+                        "parallelDeployments": 10,
+                        "resourceCount": 500
+                    }
+                },
+                { // Three
+                    "RemediationName": "[guid('Remediate', 'AssKeyVault', subscription().displayName)]",
+                    "location": "[parameters('location')]",
+                    "remediationProperties": {
+                        "locations": [ "[parameters('location')]" ],
+                        "policyAssignmentId": "[resourceId('Microsoft.Authorization/policyAssignments', 'AssKeyVault')]",
+                        "policyDefinitionReferenceId": "[extensionResourceId(variables('DefMgmtGroupLoc'), 'Microsoft.Authorization/policyDefinitions', parameters('policyDefinitionName04'))]",
+                        "resourceDiscoveryMode": "ExistingNonCompliant",
+                        "failureThreshold": {
+                            "percentage": 1
+                        },
+                        "parallelDeployments": 10,
+                        "resourceCount": 500
+                    }
+                }
+                ]
+    }
     },
     "resources": [
         { // One
@@ -208,43 +227,41 @@
         },
         {
             "type": "Microsoft.Authorization/roleAssignments",
-            "condition": "[contains(variables('policies').policyAssignments[copyIndex()], 'RoleAssignmentName')]",
             "apiVersion": "2020-10-01-preview",
-            "name": "[variables('policies').policyAssignments[copyIndex()].RoleAssignmentName]",
+            "name": "[variables('policies').roleAssignments[copyIndex()].RoleAssignmentName]",
             "copy": {
                 "name": "roleAssignmentCopy",
-                "count": "[length(variables('policies').policyAssignments)]"
+                "count": "[length(variables('policies').roleAssignments)]"
             },
             "dependsOn": [
                 "policyAssignmentCopy"
             ],
             "properties": {
-                "roleDefinitionId": "[variables('policies').policyAssignments[copyIndex()].roleAssignmentProperties.roleDefinitionId]",
-                "principalType": "[variables('policies').policyAssignments[copyIndex()].roleAssignmentProperties.principalType]",
-                "principalId": "[reference(resourceId('Microsoft.Authorization/policyAssignments', variables('policies').policyAssignments[copyIndex()].PolicyAssignmentName), '2021-06-01', 'full').identity.principalId]"
+                "roleDefinitionId": "[variables('policies').roleAssignments[copyIndex()].roleAssignmentProperties.roleDefinitionId]",
+                "principalType": "[variables('policies').roleAssignments[copyIndex()].roleAssignmentProperties.principalType]",
+                "principalId": "[reference(resourceId('Microsoft.Authorization/policyAssignments', variables('policies').roleAssignments[copyIndex()].PolicyAssignmentName), '2021-06-01', 'full').identity.principalId]"
             }
         },
         { // https://docs.microsoft.com/en-us/azure/templates/microsoft.policyinsights/2019-07-01/remediations?tabs=json#remediationfilters
-            "condition": "[contains(variables('policies').policyAssignments[copyIndex()], 'RemediationName')]",
             "type": "Microsoft.PolicyInsights/remediations",
             "apiVersion": "2021-10-01",
-            "name": "[variables('policies').policyAssignments[copyIndex()].RemediationName]",
+            "name": "[variables('policies').remediations[copyIndex()].RemediationName]",
             "copy": {
                 "name": "policyRemediationsCopy",
-                "count": "[length(variables('policies').policyAssignments)]"
+                "count": "[length(variables('policies').remediations)]"
             },
             "properties": {
                 "filters": {
-                    "locations": "[variables('policies').policyAssignments[copyIndex()].remediationProperties.locations]"
+                    "locations": "[variables('policies').remediations[copyIndex()].remediationProperties.locations]"
                 },
-                "policyAssignmentId": "[variables('policies').policyAssignments[copyIndex()].remediationProperties.policyAssignmentId]",
-                "policyDefinitionReferenceId": "[variables('policies').policyAssignments[copyIndex()].remediationProperties.policyDefinitionReferenceId]",
-                "resourceDiscoveryMode": "[variables('policies').policyAssignments[copyIndex()].remediationProperties.resourceDiscoveryMode]",
+                "policyAssignmentId": "[variables('policies').remediations[copyIndex()].remediationProperties.policyAssignmentId]",
+                "policyDefinitionReferenceId": "[variables('policies').remediations[copyIndex()].remediationProperties.policyDefinitionReferenceId]",
+                "resourceDiscoveryMode": "[variables('policies').remediations[copyIndex()].remediationProperties.resourceDiscoveryMode]",
                 "failureThreshold": {
-                    "percentage": "[variables('policies').policyAssignments[copyIndex()].remediationProperties.failureThreshold.percentage]"
+                    "percentage": "[variables('policies').remediations[copyIndex()].remediationProperties.failureThreshold.percentage]"
                 },
-                "parallelDeployments": "[variables('policies').policyAssignments[copyIndex()].remediationProperties.parallelDeployments]",
-                "resourceCount": "[variables('policies').policyAssignments[copyIndex()].remediationProperties.resourceCount]"
+                "parallelDeployments": "[variables('policies').remediations[copyIndex()].remediationProperties.parallelDeployments]",
+                "resourceCount": "[variables('policies').remediations[copyIndex()].remediationProperties.resourceCount]"
             },
             "dependsOn": [
                 "roleAssignmentCopy",

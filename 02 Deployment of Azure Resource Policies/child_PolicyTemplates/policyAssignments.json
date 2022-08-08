@@ -185,10 +185,7 @@
             "type": "Microsoft.Authorization/policyAssignments",
             "apiVersion": "2020-09-01",
             "location": "[variables('policies').policyAssignments[copyIndex()].location]",
-            "name": "[if(contains(variables('policies').policyAssignments[copyIndex()],
-                 'PolicyAssignmentName'),
-                  variables('policies').policyAssignments[copyIndex()].PolicyAssignmentName,
-                  '')]",
+            "name": "[variables('policies').policyAssignments[copyIndex()].PolicyAssignmentName]",
             "copy": {
                 "name": "policyAssignmentCopy",
                 "count": "[length(variables('policies').policyAssignments)]"
@@ -210,14 +207,10 @@
             }
         },
         {
-            "condition": "[contains(variables('policies').policyAssignments[copyIndex()],
-                 'RoleAssignmentName')]",
             "type": "Microsoft.Authorization/roleAssignments",
+            "condition": "[contains(variables('policies').policyAssignments[copyIndex()], 'RoleAssignmentName')]",
             "apiVersion": "2020-10-01-preview",
-            "name": "[if(contains(variables('policies').policyAssignments[copyIndex()],
-                 'RoleAssignmentName'),
-                  variables('policies').policyAssignments[copyIndex()].RoleAssignmentName,
-                  '')]",
+            "name": "[variables('policies').policyAssignments[copyIndex()].RoleAssignmentName]",
             "copy": {
                 "name": "roleAssignmentCopy",
                 "count": "[length(variables('policies').policyAssignments)]"
@@ -226,61 +219,32 @@
                 "policyAssignmentCopy"
             ],
             "properties": {
-                "roleDefinitionId": "[if(contains(variables('policies').policyAssignments[copyIndex()].roleAssignmentProperties,
-                 'roleDefinitionId'),
-                  variables('policies').policyAssignments[copyIndex()].roleAssignmentProperties.roleDefinitionId,
-                  '')]",
-                "principalType": "[if(contains(variables('policies').policyAssignments[copyIndex()].roleAssignmentProperties, 'principalType'), variables('policies').policyAssignments[copyIndex()].roleAssignmentProperties.principalType, '')]",
-                "principalId": "[if(contains(variables('policies').policyAssignments[copyIndex()].roleAssignmentProperties, 'roleDefinitionId'), reference(resourceId('Microsoft.Authorization/policyAssignments', variables('policies').policyAssignments[copyIndex()].PolicyAssignmentName), '2021-06-01', 'full').identity.principalId, '')]"
-                //"principalId": "[reference(resourceId('Microsoft.Authorization/policyAssignments', variables('policies').policyAssignments[copyIndex()].PolicyAssignmentName), '2021-06-01', 'full').identity.principalId]"
+                "roleDefinitionId": "[variables('policies').policyAssignments[copyIndex()].roleAssignmentProperties.roleDefinitionId]",
+                "principalType": "[variables('policies').policyAssignments[copyIndex()].roleAssignmentProperties.principalType]",
+                "principalId": "[reference(resourceId('Microsoft.Authorization/policyAssignments', variables('policies').policyAssignments[copyIndex()].PolicyAssignmentName), '2021-06-01', 'full').identity.principalId]"
             }
         },
         { // https://docs.microsoft.com/en-us/azure/templates/microsoft.policyinsights/2019-07-01/remediations?tabs=json#remediationfilters
-            "condition": "[contains(variables('policies').policyAssignments[copyIndex()],
-                 'RemediationName')]",
-                 "type": "Microsoft.PolicyInsights/remediations",
+            "condition": "[contains(variables('policies').policyAssignments[copyIndex()], 'RemediationName')]",
+            "type": "Microsoft.PolicyInsights/remediations",
             "apiVersion": "2021-10-01",
-            "name": "[if(contains(variables('policies').policyAssignments[copyIndex()],
-                 'RemediationName'),
-                  variables('policies').policyAssignments[copyIndex()].RemediationName,
-                  '')]",
+            "name": "[variables('policies').policyAssignments[copyIndex()].RemediationName]",
             "copy": {
                 "name": "policyRemediationsCopy",
                 "count": "[length(variables('policies').policyAssignments)]"
             },
             "properties": {
                 "filters": {
-                    "locations": "[if(contains(variables('policies').policyAssignments[copyIndex()].remediationProperties,
-                 'locations'),
-                  variables('policies').policyAssignments[copyIndex()].remediationProperties.locations,
-                  '')]"
+                    "locations": "[variables('policies').policyAssignments[copyIndex()].remediationProperties.locations]"
                 },
-                "policyAssignmentId": "[if(contains(variables('policies').policyAssignments[copyIndex()].remediationProperties,
-                 'policyAssignmentId'),
-                  variables('policies').policyAssignments[copyIndex()].remediationProperties.policyAssignmentId,
-                  '')]",
-                "policyDefinitionReferenceId": "[if(contains(variables('policies').policyAssignments[copyIndex()].remediationProperties,
-                 'policyDefinitionReferenceId'),
-                  variables('policies').policyAssignments[copyIndex()].remediationProperties.policyDefinitionReferenceId,
-                  '')]",
-                "resourceDiscoveryMode": "[if(contains(variables('policies').policyAssignments[copyIndex()].remediationProperties,
-                 'resourceDiscoveryMode'),
-                  variables('policies').policyAssignments[copyIndex()].remediationProperties.resourceDiscoveryMode,
-                  '')]",
+                "policyAssignmentId": "[variables('policies').policyAssignments[copyIndex()].remediationProperties.policyAssignmentId]",
+                "policyDefinitionReferenceId": "[variables('policies').policyAssignments[copyIndex()].remediationProperties.policyDefinitionReferenceId]",
+                "resourceDiscoveryMode": "[variables('policies').policyAssignments[copyIndex()].remediationProperties.resourceDiscoveryMode]",
                 "failureThreshold": {
-                    "percentage": "[if(contains(variables('policies').policyAssignments[copyIndex()].remediationProperties,
-                 'failureThreshold'),
-                  variables('policies').policyAssignments[copyIndex()].remediationProperties.failureThreshold.percentage,
-                  '')]"
+                    "percentage": "[variables('policies').policyAssignments[copyIndex()].remediationProperties.failureThreshold.percentage]"
                 },
-                "parallelDeployments": "[if(contains(variables('policies').policyAssignments[copyIndex()].remediationProperties,
-                 'parallelDeployments'),
-                  variables('policies').policyAssignments[copyIndex()].remediationProperties.parallelDeployments,
-                  '')]",
-                "resourceCount": "[if(contains(variables('policies').policyAssignments[copyIndex()].remediationProperties,
-                 'resourceCount'),
-                  variables('policies').policyAssignments[copyIndex()].remediationProperties.resourceCount,
-                  '')]"
+                "parallelDeployments": "[variables('policies').policyAssignments[copyIndex()].remediationProperties.parallelDeployments]",
+                "resourceCount": "[variables('policies').policyAssignments[copyIndex()].remediationProperties.resourceCount]"
             },
             "dependsOn": [
                 "roleAssignmentCopy",

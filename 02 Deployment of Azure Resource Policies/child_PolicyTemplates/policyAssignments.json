@@ -210,6 +210,8 @@
             }
         },
         {
+            "condition": "[contains(variables('policies').policyAssignments[copyIndex()],
+                 'RoleAssignmentName')]",
             "type": "Microsoft.Authorization/roleAssignments",
             "apiVersion": "2020-10-01-preview",
             "name": "[if(contains(variables('policies').policyAssignments[copyIndex()],
@@ -234,7 +236,9 @@
             }
         },
         { // https://docs.microsoft.com/en-us/azure/templates/microsoft.policyinsights/2019-07-01/remediations?tabs=json#remediationfilters
-            "type": "Microsoft.PolicyInsights/remediations",
+            "condition": "[contains(variables('policies').policyAssignments[copyIndex()],
+                 'RemediationName')]",
+                 "type": "Microsoft.PolicyInsights/remediations",
             "apiVersion": "2021-10-01",
             "name": "[if(contains(variables('policies').policyAssignments[copyIndex()],
                  'RemediationName'),

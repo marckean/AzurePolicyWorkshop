@@ -146,7 +146,7 @@
                 },
                 { // Three
                     "RoleAssignmentName": "[guid('RoleAssignment', 'AssKeyVault1', uniqueString(subscription().displayName))]",
-                    "PolicyAssignmentName": "AssKeyVault1",
+                    "PolicyAssignmentName": "AssKeyVault",
                     "roleAssignmentProperties": {
                         "roleDefinitionId": "[variables(parameters('ContributorKeyVaultBuiltInRoleName'))]",
                         "principalType": "ServicePrincipal"
@@ -154,7 +154,7 @@
                 },
                 { // Four
                     "RoleAssignmentName": "[guid('RoleAssignment', 'AssKeyVault2', uniqueString(subscription().displayName))]",
-                    "PolicyAssignmentName": "AssKeyVault2",
+                    "PolicyAssignmentName": "AssKeyVault",
                     "roleAssignmentProperties": {
                         "roleDefinitionId": "[variables(parameters('AdministratorKeyVaultBuiltInRoleName'))]",
                         "principalType": "ServicePrincipal"

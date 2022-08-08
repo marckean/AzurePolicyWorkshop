@@ -51,7 +51,14 @@
             "metadata": {
                 "description": "role Definition Id Name (Key Vault Contributor)"
             }
-        }
+        },
+        "ContributorBuiltInRoleName": {
+            "type": "string",
+            "defaultValue": "Contributor",
+            "metadata": {
+                "description": "role Definition Id Name (Key Vault Contributor)"
+            }
+        },
     },
     "variables": {
         "Owner": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', '8e3af657-a8ff-443c-a75c-2fe8c4bcb635')]",
@@ -315,7 +322,8 @@
                                 "details": {
                                     "roleDefinitionIds": [
                                         "[variables(parameters('AdministratorKeyVaultBuiltInRoleName'))]",
-                                        "[variables(parameters('ContributorKeyVaultBuiltInRoleName'))]"
+                                        "[variables(parameters('ContributorKeyVaultBuiltInRoleName'))]",
+                                        "[variables(parameters('ContributorBuiltInRoleName'))]"
                                     ],
                                     "conflictEffect": "audit",
                                     "operations": [

@@ -58,6 +58,13 @@
                 "description": "role Definition Id Name (Key Vault Contributor)"
             }
         },
+        "ContributorBuiltInRoleName": {
+            "type": "string",
+            "defaultValue": "Contributor",
+            "metadata": {
+                "description": "role Definition Id Name (Key Vault Contributor)"
+            }
+        },
         "location": {
             "type": "string",
             "metadata": {
@@ -145,7 +152,7 @@
                     }
                 },
                 { // Three
-                    "RoleAssignmentName": "[guid('RoleAssignment', 'AssKeyVault1', uniqueString(subscription().displayName))]",
+                    "RoleAssignmentName": "[guid('RoleAssignment', 'AssKeyVaultKeyVaultContributor', uniqueString(subscription().displayName))]",
                     "PolicyAssignmentName": "AssKeyVault",
                     "roleAssignmentProperties": {
                         "roleDefinitionId": "[variables(parameters('ContributorKeyVaultBuiltInRoleName'))]",
@@ -153,10 +160,18 @@
                     }
                 },
                 { // Four
-                    "RoleAssignmentName": "[guid('RoleAssignment', 'AssKeyVault2', uniqueString(subscription().displayName))]",
+                    "RoleAssignmentName": "[guid('RoleAssignment', 'AssKeyVaultKeyVaultAdministrator', uniqueString(subscription().displayName))]",
                     "PolicyAssignmentName": "AssKeyVault",
                     "roleAssignmentProperties": {
                         "roleDefinitionId": "[variables(parameters('AdministratorKeyVaultBuiltInRoleName'))]",
+                        "principalType": "ServicePrincipal"
+                    }
+                },
+                { // Four
+                    "RoleAssignmentName": "[guid('RoleAssignment', 'AssKeyVaultContributor', uniqueString(subscription().displayName))]",
+                    "PolicyAssignmentName": "AssKeyVault",
+                    "roleAssignmentProperties": {
+                        "roleDefinitionId": "[variables(parameters('ContributorBuiltInRoleName'))]",
                         "principalType": "ServicePrincipal"
                     }
                 }

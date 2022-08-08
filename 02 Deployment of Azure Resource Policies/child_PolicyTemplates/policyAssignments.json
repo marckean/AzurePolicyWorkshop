@@ -145,15 +145,15 @@
                     }
                 },
                 { // Three
-                    "RoleAssignmentName": "[guid('RoleAssignment', 'AssKeyVault', uniqueString(subscription().displayName))]",
+                    "RoleAssignmentName": "[guid('RoleAssignment', 'AssKeyVault1', uniqueString(subscription().displayName))]",
                     "PolicyAssignmentName": "AssKeyVault1",
                     "roleAssignmentProperties": {
                         "roleDefinitionId": "[variables(parameters('ContributorKeyVaultBuiltInRoleName'))]",
                         "principalType": "ServicePrincipal"
                     }
                 },
-                { // Three
-                    "RoleAssignmentName": "[guid('RoleAssignment', 'AssKeyVault', uniqueString(subscription().displayName))]",
+                { // Four
+                    "RoleAssignmentName": "[guid('RoleAssignment', 'AssKeyVault2', uniqueString(subscription().displayName))]",
                     "PolicyAssignmentName": "AssKeyVault2",
                     "roleAssignmentProperties": {
                         "roleDefinitionId": "[variables(parameters('AdministratorKeyVaultBuiltInRoleName'))]",

@@ -24,7 +24,7 @@ module pa1 '../child_PolicyTemplates/policy_assignments.bicep' = {
   scope: resourceGroup(subscriptionID, resourceGroups_var[1].resourceGroupName)
   name: 'Company_PolicyAssignment_01'
   params: {
-    location: resourceGroups_var[1].outputs.RGLocation
+    location: resourceGroups_var[1].location
     DCR_ResourceGroupName: resourceGroups_var[0].resourceGroupName
   }
 }

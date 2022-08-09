@@ -38,27 +38,20 @@
                 "description": "role Definition Id Name (Network Contributor)"
             }
         },
-        "AdministratorKeyVaultBuiltInRoleName": {
+        "OwnerBuiltInRoleName": {
             "type": "string",
-            "defaultValue": "Key Vault Administrator",
+            "defaultValue": "Owner",
             "metadata": {
-                "description": "role Definition Id Name (Key Vault Administrator)"
+                "description": "Owner BuiltIn Role Name"
             }
         },
-        "ContributorKeyVaultBuiltInRoleName": {
+        "UserAccessAdministratorBuiltInRoleName": {
             "type": "string",
-            "defaultValue": "Key Vault Contributor",
+            "defaultValue": "User Access Administrator",
             "metadata": {
-                "description": "role Definition Id Name (Key Vault Contributor)"
+                "description": "User Based Access Administrator BuiltIn Role Name"
             }
-        },
-        "ContributorBuiltInRoleName": {
-            "type": "string",
-            "defaultValue": "Contributor",
-            "metadata": {
-                "description": "role Definition Id Name (Key Vault Contributor)"
-            }
-        },
+        }
     },
     "variables": {
         "Owner": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', '8e3af657-a8ff-443c-a75c-2fe8c4bcb635')]",
@@ -321,9 +314,8 @@
                                 "effect": "modify",
                                 "details": {
                                     "roleDefinitionIds": [
-                                        "[variables(parameters('AdministratorKeyVaultBuiltInRoleName'))]",
-                                        "[variables(parameters('ContributorKeyVaultBuiltInRoleName'))]",
-                                        "[variables(parameters('ContributorBuiltInRoleName'))]"
+                                        "[variables(parameters('OwnerBuiltInRoleName'))]",
+                                        "[variables(parameters('UserAccessAdministratorBuiltInRoleName'))]"
                                     ],
                                     "conflictEffect": "audit",
                                     "operations": [

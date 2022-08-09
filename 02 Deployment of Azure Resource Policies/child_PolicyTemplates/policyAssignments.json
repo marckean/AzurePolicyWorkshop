@@ -44,25 +44,18 @@
                 "description": "role Definition Id Name (Network Contributor)"
             }
         },
-        "AdministratorKeyVaultBuiltInRoleName": {
+        "OwnerBuiltInRoleName": {
             "type": "string",
-            "defaultValue": "Key Vault Administrator",
+            "defaultValue": "Owner",
             "metadata": {
-                "description": "role Definition Id Name (Key Vault Administrator)"
+                "description": "Owner BuiltIn Role Name"
             }
         },
-        "ContributorKeyVaultBuiltInRoleName": {
+        "UserAccessAdministratorBuiltInRoleName": {
             "type": "string",
-            "defaultValue": "Key Vault Contributor",
+            "defaultValue": "User Access Administrator",
             "metadata": {
-                "description": "role Definition Id Name (Key Vault Contributor)"
-            }
-        },
-        "ContributorBuiltInRoleName": {
-            "type": "string",
-            "defaultValue": "Contributor",
-            "metadata": {
-                "description": "role Definition Id Name (Key Vault Contributor)"
+                "description": "User Based Access Administrator BuiltIn Role Name"
             }
         },
         "location": {
@@ -155,7 +148,7 @@
                     "RoleAssignmentName": "[guid('RoleAssignment', 'AssKeyVaultKeyVaultContributor', uniqueString(subscription().displayName))]",
                     "PolicyAssignmentName": "AssKeyVault",
                     "roleAssignmentProperties": {
-                        "roleDefinitionId": "[variables(parameters('ContributorKeyVaultBuiltInRoleName'))]",
+                        "roleDefinitionId": "[variables(parameters('OwnerBuiltInRoleName'))]",
                         "principalType": "ServicePrincipal"
                     }
                 },
@@ -163,15 +156,7 @@
                     "RoleAssignmentName": "[guid('RoleAssignment', 'AssKeyVaultKeyVaultAdministrator', uniqueString(subscription().displayName))]",
                     "PolicyAssignmentName": "AssKeyVault",
                     "roleAssignmentProperties": {
-                        "roleDefinitionId": "[variables(parameters('AdministratorKeyVaultBuiltInRoleName'))]",
-                        "principalType": "ServicePrincipal"
-                    }
-                },
-                { // Four
-                    "RoleAssignmentName": "[guid('RoleAssignment', 'AssKeyVaultContributor', uniqueString(subscription().displayName))]",
-                    "PolicyAssignmentName": "AssKeyVault",
-                    "roleAssignmentProperties": {
-                        "roleDefinitionId": "[variables(parameters('ContributorBuiltInRoleName'))]",
+                        "roleDefinitionId": "[variables(parameters('UserAccessAdministratorBuiltInRoleName'))]",
                         "principalType": "ServicePrincipal"
                     }
                 }

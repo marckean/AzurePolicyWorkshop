@@ -9,7 +9,7 @@ New-AzTemplateSpec `
   -Version "1.0.0" `
   -ResourceGroupName $ts_resourcegroupname `
   -Location $location `
-  -TemplateFile ".\02 Deployment of Azure Resource Policies\child_PolicyTemplates\policyAssignments.json" `
+  -TemplateFile ".\02 Deployment of Azure Resource Policies (JSON)\child_PolicyTemplates\policyAssignments.json" `
   -Force
 
   New-AzTemplateSpec `
@@ -17,9 +17,9 @@ New-AzTemplateSpec `
   -Version "1.0.0" `
   -ResourceGroupName $ts_resourcegroupname `
   -Location $location `
-  -TemplateFile ".\02 Deployment of Azure Resource Policies\child_PolicyTemplates\policyDefinitions.json" `
+  -TemplateFile ".\02 Deployment of Azure Resource Policies (JSON)\child_PolicyTemplates\policyDefinitions.json" `
   -Force
 
 $TimeNow = Get-Date -Format yyyyMMdd-hhmm
 
-New-AzManagementGroupDeployment -Location $location -TemplateFile '.\02 Deployment of Azure Resource Policies\parent_PolicyTemplates\parentAzurePolicies.json' -ManagementGroupId $ManagementGroupId -Name $TimeNow -Verbose -ErrorAction Continue
+New-AzManagementGroupDeployment -Location $location -TemplateFile '.\02 Deployment of Azure Resource Policies (JSON)\parent_PolicyTemplates\parentAzurePolicies.json' -ManagementGroupId $ManagementGroupId -Name $TimeNow -Verbose -ErrorAction Continue

@@ -35,8 +35,15 @@ resource policyAssignment01 'Microsoft.Authorization/policyAssignments@2021-06-0
                 value: resourceId(subscription().subscriptionId, DCR_ResourceGroupName, 'Microsoft.Insights/dataCollectionRules', DCR_Name)
             }
         }
+        nonComplianceMessages: [
+            {
+                message: 'Windows machines cannot run Azure Monitor Agent and be associated to a Data Collection Rule'
+            }
+        ]
     }
 }
+
+// Role Assignment
 
 resource roleAssignment01 'Microsoft.Authorization/roleAssignments@2020-10-01-preview' = {
     name: guid('RoleAssignment01', policyAssignmentName01, uniqueString(subscription().displayName))
@@ -64,6 +71,8 @@ resource roleAssignment03 'Microsoft.Authorization/roleAssignments@2020-10-01-pr
         principalId: reference(policyAssignment01.id, '2021-06-01', 'full').identity.principalId
     }
 }
+
+// Remediation
 
 resource remediate_policyAssignment01 'Microsoft.PolicyInsights/remediations@2021-10-01' = {
     name: guid('Remediate', policyAssignmentName01, subscription().displayName)

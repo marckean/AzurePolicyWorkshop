@@ -124,17 +124,7 @@
                         "displayName": "Deny deployment of an NSG that contains NSG rules with port 22 or 3389 as destination ports",
                         "enforcementMode": "Default",
                         "policyDefinitionId": "[extensionResourceId(variables('DefMgmtGroupLoc'), 'Microsoft.Authorization/policyDefinitions', parameters('policyDefinitionName05'))]",
-                        "nonComplianceMessages": "Azure KeyVault must adhere to strict governance"
-                    }
-                },
-                { // Five
-                    "PolicyAssignmentName": "AssDenyNSG_Rules",
-                    "location": "[parameters('location')]",
-                    "policyAssignmentProperties": {
-                        "displayName": "Deny deployment of an NSG that contains NSG rules with port 22 or 3389 as destination ports",
-                        "enforcementMode": "Default",
-                        "policyDefinitionId": "[extensionResourceId(variables('DefMgmtGroupLoc'), 'Microsoft.Authorization/policyDefinitions', parameters('policyDefinitionName05'))]",
-                        "nonComplianceMessages": "Azure KeyVault must adhere to strict governance"
+                        "nonComplianceMessages": "NSG rules cannot contain port 22 or 3389 as destination ports"
                     }
                 }
             ],

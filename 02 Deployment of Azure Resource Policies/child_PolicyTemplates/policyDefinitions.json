@@ -352,10 +352,6 @@
                             "if": {
                                 "allOf": [
                                     {
-                                        "field": "type",
-                                        "equals": "Microsoft.Network/networkSecurityGroups"
-                                    },
-                                    {
                                         "field": "Microsoft.Network/networkSecurityGroups/securityRules[*]",
                                         "exists": true
                                     },

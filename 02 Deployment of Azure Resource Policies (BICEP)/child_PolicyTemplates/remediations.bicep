@@ -1,3 +1,5 @@
+targetScope = 'subscription'
+
 param name string
 param filters object
 param policyAssignmentId string

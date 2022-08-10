@@ -95,12 +95,12 @@ module pa '../child_PolicyTemplates/policy_assignments.bicep' = [for policyAssig
 // Role Assignment
 module ra '../child_PolicyTemplates/role_assignments.bicep' = [for roleAssignment in roleAssignments_var: {
   name: roleAssignment.roleAssignmentName
-  scope: resourceGroup(subscriptionID, DCR_ResourceGroupName)
+  scope: subscription(subscriptionID)
   params: {
     name: guid(roleAssignment.roleAssignmentName, roleAssignment.policyAssignmentName, uniqueString(subscriptionDisplayName))
     roleDefinitionId: roleAssignment.roleDefinitionId
     principalType: roleAssignment.principalType
-    principalId: toLower(reference(concat('/providers/Microsoft.Authorization/policyAssignments/', policyAssignments_var[0].policyAssignmentName), '2021-06-01', 'full').identity.principalId)
+    principalId: reference(resourceId('Microsoft.Authorization/policyAssignments', policyAssignments_var[0].policyAssignmentName), '2021-06-01', 'full').identity.principalId
   }
   dependsOn: [
     pa
@@ -110,7 +110,7 @@ module ra '../child_PolicyTemplates/role_assignments.bicep' = [for roleAssignmen
 // Resource Group scope
 module rem '../child_PolicyTemplates/remediations.bicep' = [for remediation in remediations_var: {
   name: remediation.remediationName
-  scope: resourceGroup(subscriptionID, DCR_ResourceGroupName)
+  scope: subscription(subscriptionID)
   params: {
     name: remediation.remediationName
     filters: remediation.filters

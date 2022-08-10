@@ -100,7 +100,7 @@ module ra '../child_PolicyTemplates/role_assignments.bicep' = [for roleAssignmen
     name: guid(roleAssignment.roleAssignmentName, roleAssignment.policyAssignmentName, uniqueString(subscriptionDisplayName))
     roleDefinitionId: roleAssignment.roleDefinitionId
     principalType: roleAssignment.principalType
-    principalId: reference(resourceId('Microsoft.Authorization/policyAssignments', policyAssignments_var[0].policyAssignmentName), '2018-05-01', 'full').identity.principalId
+    principalId: toLower(reference(concat('/providers/Microsoft.Authorization/policyAssignments/', policyAssignments_var[0].policyAssignmentName), '2021-06-01', 'full').identity.principalId)
   }
   dependsOn: [
     pa

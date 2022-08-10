@@ -41,21 +41,18 @@ var roleAssignments_var = [
     roleAssignmentName: guid('RoleAssignment01', policyAssignments_var[0].policyAssignmentName, uniqueString(subscriptionDisplayName))
     roleDefinitionId: Virtual_Machine_Contributor
     principalType: 'ServicePrincipal'
-    policyAssignmentId: resourceId('Microsoft.Authorization/policyAssignments', policyAssignments_var[0].policyAssignmentName)
     scope: subscription(subscriptionID)
   }
   {
     roleAssignmentName: guid('RoleAssignment02', policyAssignments_var[0].policyAssignmentName, uniqueString(subscriptionDisplayName))
     roleDefinitionId: Monitoring_Contributor
     principalType: 'ServicePrincipal'
-    policyAssignmentId: resourceId('Microsoft.Authorization/policyAssignments', policyAssignments_var[0].policyAssignmentName)
     scope: subscription(subscriptionID)
   }
   {
     roleAssignmentName: guid('RoleAssignment03', policyAssignments_var[0].policyAssignmentName, uniqueString(subscriptionDisplayName))
     roleDefinitionId: Log_Analytics_Contributor
     principalType: 'ServicePrincipal'
-    policyAssignmentId: resourceId('Microsoft.Authorization/policyAssignments', policyAssignments_var[0].policyAssignmentName)
     scope: subscription(subscriptionID)
   }
 ]
@@ -103,7 +100,7 @@ module ra '../child_PolicyTemplates/role_assignments.bicep' = [for roleAssignmen
     name: guid(roleAssignment.roleAssignmentName, roleAssignment.policyAssignmentName, uniqueString(subscriptionDisplayName))
     roleDefinitionId: roleAssignment.roleDefinitionId
     principalType: roleAssignment.principalType
-    principalId: reference(roleAssignment.policyAssignmentId, '2021-06-01', 'full').identity.principalId
+    principalId: reference(resourceId('Microsoft.Authorization/policyAssignments', policyAssignments_var[0].policyAssignmentName), '2021-06-01', 'full').identity.principalId
   }
   dependsOn: [
     pa

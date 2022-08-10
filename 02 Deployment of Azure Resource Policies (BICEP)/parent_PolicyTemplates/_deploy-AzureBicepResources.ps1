@@ -7,4 +7,3 @@ $TimeNow = Get-Date -Format yyyyMMdd-hhmm
 
 # All test Azure resources including NSGs & NSG Security Rukles as both top level resources
 New-AzManagementGroupDeployment -Location $location -TemplateFile './02 Deployment of Azure Resource Policies (BICEP)\parent_PolicyTemplates\main.bicep' -ManagementGroupId $ManagementGroupId -Name $TimeNow -Verbose
-

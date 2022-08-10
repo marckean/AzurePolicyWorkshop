@@ -3,6 +3,11 @@ targetScope = 'managementGroup'
 param DCR_ResourceGroupName string = 'Company_PaaS'
 param DCR_Name string = 'AllSystemInformation'
 
+param listOfAllowedLocations array = [
+  'australiaeast'
+  'australiasoutheast'
+]
+
 // Tenant
 var subscriptionID = '7ac51792-8ea1-4ea8-be56-eb515e42aadf'
 var subscriptionDisplayName = 'CSR-CUSPOC-NMST-makean'
@@ -15,8 +20,9 @@ var Log_Analytics_Contributor = subscriptionResourceId('Microsoft.Authorization/
 
 var policyAssignments_var = [
   {
-    policyAssignmentName: 'PolicyAssignment01'
+    policyAssignmentName: 'AzureMonitorAgent_DCR'
     policyAssignmentDisplayName: 'Configure Windows machines to run Azure Monitor Agent and associate them to a Data Collection Rule'
+    description: 'Monitor and secure your Windows virtual machines, virtual machine scale sets, and Arc machines by deploying the Azure Monitor Agent extension and associating the machines with a specified Data Collection Rule. Deployment will occur on machines with supported OS images (or machines matching the provided list of images) in supported regions.'
     policyDefinitionId: '/providers/Microsoft.Authorization/policySetDefinitions/9575b8b7-78ab-4281-b53b-d3c1ace2260b'
     enforcementMode: 'Default'
     identity: {
@@ -34,22 +40,44 @@ var policyAssignments_var = [
     ]
     scope: resourceGroup(subscriptionID, DCR_ResourceGroupName)
   }
+  {
+    policyAssignmentName: 'Allowed Locations'
+    policyAssignmentDisplayName: 'Configure Windows machines to run Azure Monitor Agent and associate them to a Data Collection Rule'
+    description: 'This policy enables you to restrict the locations your organization can specify when deploying resources. Use to enforce your geo-compliance requirements. Excludes resource groups, Microsoft.AzureActiveDirectory/b2cDirectories, and resources that use the global region.'
+    policyDefinitionId: '/providers/Microsoft.Authorization/policyDefinitions/e56962a6-4747-49cd-b67b-bf8b01975c4c'
+    enforcementMode: 'Default'
+    identity: {}
+    parameters: {
+      listOfAllowedLocations: {
+        value: listOfAllowedLocations
+      }
+    }
+    nonComplianceMessages: [
+      {
+        message: 'You are deploying outside of the allowed region'
+      }
+    ]
+    scope: resourceGroup(subscriptionID, DCR_ResourceGroupName)
+  }
 ]
 
 var roleAssignments_var = [
   {
+    policyAssignmentName: 'AzureMonitorAgent_DCR'
     roleAssignmentName: guid('RoleAssignment01', policyAssignments_var[0].policyAssignmentName, uniqueString(subscriptionDisplayName))
     roleDefinitionId: Virtual_Machine_Contributor
     principalType: 'ServicePrincipal'
     scope: subscription(subscriptionID)
   }
   {
+    policyAssignmentName: 'AzureMonitorAgent_DCR'
     roleAssignmentName: guid('RoleAssignment02', policyAssignments_var[0].policyAssignmentName, uniqueString(subscriptionDisplayName))
     roleDefinitionId: Monitoring_Contributor
     principalType: 'ServicePrincipal'
     scope: subscription(subscriptionID)
   }
   {
+    policyAssignmentName: 'AzureMonitorAgent_DCR'
     roleAssignmentName: guid('RoleAssignment03', policyAssignments_var[0].policyAssignmentName, uniqueString(subscriptionDisplayName))
     roleDefinitionId: Log_Analytics_Contributor
     principalType: 'ServicePrincipal'
@@ -85,6 +113,7 @@ module pa '../child_PolicyTemplates/policy_assignments.bicep' = [for policyAssig
     location: location_var
     identity: policyAssignment.identity
     displayName: policyAssignment.policyAssignmentDisplayName
+    description: policyAssignment.description
     enforcementMode: policyAssignment.enforcementMode
     policyDefinitionId: policyAssignment.policyDefinitionId
     parameters: policyAssignment.parameters
@@ -100,7 +129,7 @@ module ra '../child_PolicyTemplates/role_assignments.bicep' = [for roleAssignmen
     name: guid(roleAssignment.roleAssignmentName, roleAssignment.policyAssignmentName, uniqueString(subscriptionDisplayName))
     roleDefinitionId: roleAssignment.roleDefinitionId
     principalType: roleAssignment.principalType
-    principalId: reference(resourceId(DCR_ResourceGroupName, 'Microsoft.Authorization/policyAssignments', policyAssignments_var[0].policyAssignmentName), '2022-06-01', 'full').identity.principalId
+    principalId: reference(resourceId(subscriptionID, DCR_ResourceGroupName, 'Microsoft.Authorization/policyAssignments', policyAssignments_var[0].policyAssignmentName), '2022-06-01', 'full').identity.principalId
   }
   dependsOn: [
     pa

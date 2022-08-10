@@ -15,7 +15,7 @@ var Log_Analytics_Contributor = subscriptionResourceId('Microsoft.Authorization/
 
 var policyAssignments_var = [
   {
-    policyAssignmentName: guid('PolicyAssignment01', subscriptionDisplayName)
+    policyAssignmentName: 'PolicyAssignment01'
     policyAssignmentDisplayName: 'Configure Windows machines to run Azure Monitor Agent and associate them to a Data Collection Rule'
     policyDefinitionId: '/providers/Microsoft.Authorization/policySetDefinitions/9575b8b7-78ab-4281-b53b-d3c1ace2260b'
     enforcementMode: 'Default'

@@ -42,21 +42,21 @@ var roleAssignments_var = [
     roleDefinitionId: Virtual_Machine_Contributor
     principalType: 'ServicePrincipal'
     policyAssignmentId: resourceId('Microsoft.Authorization/policyAssignments', policyAssignments_var[0].policyAssignmentName)
-    scope: resourceGroup(subscriptionID, DCR_ResourceGroupName)
+    scope: subscription(subscriptionID)
   }
   {
     roleAssignmentName: guid('RoleAssignment02', policyAssignments_var[0].policyAssignmentName, uniqueString(subscriptionDisplayName))
     roleDefinitionId: Monitoring_Contributor
     principalType: 'ServicePrincipal'
     policyAssignmentId: resourceId('Microsoft.Authorization/policyAssignments', policyAssignments_var[0].policyAssignmentName)
-    scope: resourceGroup(subscriptionID, DCR_ResourceGroupName)
+    scope: subscription(subscriptionID)
   }
   {
     roleAssignmentName: guid('RoleAssignment03', policyAssignments_var[0].policyAssignmentName, uniqueString(subscriptionDisplayName))
     roleDefinitionId: Log_Analytics_Contributor
     principalType: 'ServicePrincipal'
     policyAssignmentId: resourceId('Microsoft.Authorization/policyAssignments', policyAssignments_var[0].policyAssignmentName)
-    scope: resourceGroup(subscriptionID, DCR_ResourceGroupName)
+    scope: subscription(subscriptionID)
   }
 ]
 
@@ -98,7 +98,7 @@ module pa '../child_PolicyTemplates/policy_assignments.bicep' = [for policyAssig
 // Role Assignment
 module ra '../child_PolicyTemplates/role_assignments.bicep' = [for roleAssignment in roleAssignments_var: {
   name: roleAssignment.roleAssignmentName
-  scope: roleAssignment.scope
+  scope: resourceGroup(subscriptionID, DCR_ResourceGroupName)
   params: {
     name: guid(roleAssignment.roleAssignmentName, roleAssignment.policyAssignmentName, uniqueString(subscriptionDisplayName))
     roleDefinitionId: roleAssignment.roleDefinitionId
@@ -113,7 +113,7 @@ module ra '../child_PolicyTemplates/role_assignments.bicep' = [for roleAssignmen
 // Resource Group scope
 module rem '../child_PolicyTemplates/remediations.bicep' = [for remediation in remediations_var: {
   name: remediation.remediationName
-  scope: remediation.scope
+  scope: resourceGroup(subscriptionID, DCR_ResourceGroupName)
   params: {
     name: remediation.remediationName
     filters: remediation.filters

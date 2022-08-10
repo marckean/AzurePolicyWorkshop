@@ -133,7 +133,7 @@
                     "RoleAssignmentName": "[guid('RoleAssignment', 'AssSecTransStgAcct', uniqueString(subscription().displayName))]",
                     "PolicyAssignmentName": "AssSecTransStgAcct",
                     "roleAssignmentProperties": {
-                        "roleDefinitionId": "[variables(parameters('StorageBuiltInRoleName'))]",
+                        "roleDefinitionId": "[variables('Storage Account Contributor')]",
                         "principalType": "ServicePrincipal"
                     }
                 },
@@ -141,7 +141,7 @@
                     "RoleAssignmentName": "[guid('RoleAssignment', 'AssNoRDPSSHInt', uniqueString(subscription().displayName))]",
                     "PolicyAssignmentName": "AssNoRDPSSHInt",
                     "roleAssignmentProperties": {
-                        "roleDefinitionId": "[variables(parameters('NetworkBuiltInRoleName'))]",
+                        "roleDefinitionId": "[variables('Network Contributor')]",
                         "principalType": "ServicePrincipal"
                     }
                 },
@@ -149,7 +149,7 @@
                     "RoleAssignmentName": "[guid('RoleAssignment', 'AssKeyVaultOwner', uniqueString(subscription().displayName))]",
                     "PolicyAssignmentName": "AssKeyVault",
                     "roleAssignmentProperties": {
-                        "roleDefinitionId": "[variables(parameters('OwnerBuiltInRoleName'))]",
+                        "roleDefinitionId": "[variables('Owner')]",
                         "principalType": "ServicePrincipal"
                     }
                 },
@@ -157,7 +157,7 @@
                     "RoleAssignmentName": "[guid('RoleAssignment', 'AssKeyVaultUserAccessAdministrator', uniqueString(subscription().displayName))]",
                     "PolicyAssignmentName": "AssKeyVault",
                     "roleAssignmentProperties": {
-                        "roleDefinitionId": "[variables(parameters('UserAccessAdministratorBuiltInRoleName'))]",
+                        "roleDefinitionId": "[variables('User Access Administrator')]",
                         "principalType": "ServicePrincipal"
                     }
                 }

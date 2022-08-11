@@ -31,6 +31,11 @@ var resourceGroups_var = [
     location: 'australiaeast'
     resourceGroupName: 'Company_Storage'
   }
+  {
+    name: 'Company_RG_06'
+    location: 'australiaeast'
+    resourceGroupName: 'Company_Open'
+  }
 ]
 
 // Virtual Networks

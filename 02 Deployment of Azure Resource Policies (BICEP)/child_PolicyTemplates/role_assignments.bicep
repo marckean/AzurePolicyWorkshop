@@ -1,5 +1,3 @@
-targetScope = 'subscription'
-
 param name string
 param roleDefinitionId string
 param principalType string

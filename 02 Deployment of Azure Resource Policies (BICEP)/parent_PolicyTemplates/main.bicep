@@ -18,7 +18,7 @@ var Virtual_Machine_Contributor = subscriptionResourceId('Microsoft.Authorizatio
 var Monitoring_Contributor = subscriptionResourceId('Microsoft.Authorization/roleDefinitions', '749f88d5-cbae-40b8-bcfc-e573ddc772fa')
 var Log_Analytics_Contributor = subscriptionResourceId('Microsoft.Authorization/roleDefinitions', '92aaf0da-9dab-42b6-94a3-d43ce8d16293')
 
-var policyAssignments_var = [
+var policyAssignments_RG_var = [
   {
     policyAssignmentName: 'AzureMonitorAgent_DCR'
     policyAssignmentDisplayName: 'Configure Windows machines to run Azure Monitor Agent and associate them to a Data Collection Rule'
@@ -38,15 +38,22 @@ var policyAssignments_var = [
         message: 'Windows machines cannot run Azure Monitor Agent and be associated to a Data Collection Rule'
       }
     ]
-    scope: resourceGroup(subscriptionID, DCR_ResourceGroupName)
+    subscriptionId: subscriptionID
+    resourceGroupName: DCR_ResourceGroupName
+
   }
+]
+
+var policyAssignments_sub_var = [
   {
-    policyAssignmentName: 'Allowed Locations'
-    policyAssignmentDisplayName: 'Configure Windows machines to run Azure Monitor Agent and associate them to a Data Collection Rule'
+    policyAssignmentName: 'Allowed_Locations'
+    policyAssignmentDisplayName: 'Allowed Locations'
     description: 'This policy enables you to restrict the locations your organization can specify when deploying resources. Use to enforce your geo-compliance requirements. Excludes resource groups, Microsoft.AzureActiveDirectory/b2cDirectories, and resources that use the global region.'
     policyDefinitionId: '/providers/Microsoft.Authorization/policyDefinitions/e56962a6-4747-49cd-b67b-bf8b01975c4c'
     enforcementMode: 'Default'
-    identity: {}
+    identity: {
+      type: 'SystemAssigned'
+    }
     parameters: {
       listOfAllowedLocations: {
         value: listOfAllowedLocations
@@ -57,40 +64,43 @@ var policyAssignments_var = [
         message: 'You are deploying outside of the allowed region'
       }
     ]
-    scope: resourceGroup(subscriptionID, DCR_ResourceGroupName)
+    subscriptionId: subscriptionID
   }
 ]
 
-var roleAssignments_var = [
+var roleAssignments_RG_var = [
   {
     policyAssignmentName: 'AzureMonitorAgent_DCR'
-    roleAssignmentName: guid('RoleAssignment01', policyAssignments_var[0].policyAssignmentName, uniqueString(subscriptionDisplayName))
+    roleAssignmentName: guid('RoleAssignment01', policyAssignments_RG_var[0].policyAssignmentName, uniqueString(subscriptionDisplayName))
     roleDefinitionId: Virtual_Machine_Contributor
     principalType: 'ServicePrincipal'
-    scope: subscription(subscriptionID)
+    subscriptionId: subscriptionID
+    resourceGroupName: DCR_ResourceGroupName
   }
   {
     policyAssignmentName: 'AzureMonitorAgent_DCR'
-    roleAssignmentName: guid('RoleAssignment02', policyAssignments_var[0].policyAssignmentName, uniqueString(subscriptionDisplayName))
+    roleAssignmentName: guid('RoleAssignment02', policyAssignments_RG_var[0].policyAssignmentName, uniqueString(subscriptionDisplayName))
     roleDefinitionId: Monitoring_Contributor
     principalType: 'ServicePrincipal'
-    scope: subscription(subscriptionID)
+    subscriptionId: subscriptionID
+    resourceGroupName: DCR_ResourceGroupName
   }
   {
     policyAssignmentName: 'AzureMonitorAgent_DCR'
-    roleAssignmentName: guid('RoleAssignment03', policyAssignments_var[0].policyAssignmentName, uniqueString(subscriptionDisplayName))
+    roleAssignmentName: guid('RoleAssignment03', policyAssignments_RG_var[0].policyAssignmentName, uniqueString(subscriptionDisplayName))
     roleDefinitionId: Log_Analytics_Contributor
     principalType: 'ServicePrincipal'
-    scope: subscription(subscriptionID)
+    subscriptionId: subscriptionID
+    resourceGroupName: DCR_ResourceGroupName
   }
 ]
 
 var remediations_var = [
   {
-    remediationName: guid('Remediate', policyAssignments_var[0].policyAssignmentName, subscriptionDisplayName)
+    remediationName: guid('Remediate', policyAssignments_RG_var[0].policyAssignmentName, subscriptionDisplayName)
     DefMgmtGroup: tenantResourceId('Microsoft.Management/managementGroups', ManagemantGroup)
     policyDefinitionName: 'Configure Windows machines to run Azure Monitor Agent and associate them to a Data Collection Rule'
-    policyAssignmentId: resourceId('Microsoft.Authorization/policyAssignments', policyAssignments_var[0].policyAssignmentName)
+    policyAssignmentId: resourceId('Microsoft.Authorization/policyAssignments', policyAssignments_RG_var[0].policyAssignmentName)
     resourceDiscoveryMode: 'ExistingNonCompliant'
     filters: {
       locations: [
@@ -100,14 +110,30 @@ var remediations_var = [
     failureThreshold: {
       percentage: 1
     }
-    scope: subscription(subscriptionID)
   }
 ]
 
 // Resource Group scope
-module pa '../child_PolicyTemplates/policy_assignments.bicep' = [for policyAssignment in policyAssignments_var: {
+module pa1 '../child_PolicyTemplates/policy_assignments_RG.bicep' = [for policyAssignment in policyAssignments_RG_var: {
   name: policyAssignment.policyAssignmentName
-  scope: policyAssignment.scope
+  scope: resourceGroup(policyAssignment.subscriptionId, policyAssignment.resourceGroupName)
+  params: {
+    name: policyAssignment.policyAssignmentName
+    location: location_var
+    identity: policyAssignment.identity
+    displayName: policyAssignment.policyAssignmentDisplayName
+    description: policyAssignment.description
+    enforcementMode: policyAssignment.enforcementMode
+    policyDefinitionId: policyAssignment.policyDefinitionId
+    parameters: policyAssignment.parameters
+    nonComplianceMessages: policyAssignment.nonComplianceMessages
+  }
+}]
+
+// subscription scope
+module pa2 '../child_PolicyTemplates/policy_assignments_sub.bicep' = [for policyAssignment in policyAssignments_sub_var: {
+  name: policyAssignment.policyAssignmentName
+  scope: subscription(policyAssignment.subscriptionId)
   params: {
     name: policyAssignment.policyAssignmentName
     location: location_var
@@ -122,17 +148,18 @@ module pa '../child_PolicyTemplates/policy_assignments.bicep' = [for policyAssig
 }]
 
 // Role Assignment
-module ra '../child_PolicyTemplates/role_assignments.bicep' = [for roleAssignment in roleAssignments_var: {
+module ra '../child_PolicyTemplates/role_assignments.bicep' = [for roleAssignment in roleAssignments_RG_var: {
   name: roleAssignment.roleAssignmentName
-  scope: subscription(subscriptionID)
+  scope: resourceGroup(roleAssignment.subscriptionId, roleAssignment.resourceGroupName)
   params: {
     name: guid(roleAssignment.roleAssignmentName, roleAssignment.policyAssignmentName, uniqueString(subscriptionDisplayName))
     roleDefinitionId: roleAssignment.roleDefinitionId
     principalType: roleAssignment.principalType
-    principalId: reference(resourceId(subscriptionID, DCR_ResourceGroupName, 'Microsoft.Authorization/policyAssignments', policyAssignments_var[0].policyAssignmentName), '2022-06-01', 'full').identity.principalId
+    principalId: reference(resourceId(subscriptionID, DCR_ResourceGroupName, 'Microsoft.Authorization/policyAssignments', policyAssignments_RG_var[0].policyAssignmentName), '2022-06-01', 'full').identity.principalId
   }
   dependsOn: [
-    pa
+    pa1
+    pa2
   ]
 }]
 
@@ -151,7 +178,8 @@ module rem '../child_PolicyTemplates/remediations.bicep' = [for remediation in r
     resourceCount: 500
   }
   dependsOn: [
-    pa
+    pa1
+    pa2
     ra
   ]
 }]

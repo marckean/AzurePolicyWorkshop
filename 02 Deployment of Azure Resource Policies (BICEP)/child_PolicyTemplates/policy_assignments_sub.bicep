@@ -1,3 +1,5 @@
+targetScope = 'subscription'
+
 param name string
 param location string
 param identity object

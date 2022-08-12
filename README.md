@@ -15,8 +15,6 @@
     - [Deployment of Guest Config VM Extension - JSON](#deployment-of-guest-config-vm-extension---json)
     - [Deployment of Guest Config Policies - JSON](#deployment-of-guest-config-policies---json)
 
-
-
 ## Agenda
 
 ### Day 1

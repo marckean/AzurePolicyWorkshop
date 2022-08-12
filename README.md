@@ -12,7 +12,8 @@
     - [Deployment of Azure Built-In Policies - BICEP](#deployment-of-azure-built-in-policies---bicep)
     - [Deployment of Azure Policy Exemptions - BICEP](#deployment-of-azure-policy-exemptions---bicep)
     - [Deployment of Azure Resource Exemptions - BICEP](#deployment-of-azure-resource-exemptions---bicep)
-    - [Deployment of Azure Resource Exemptions - BICEP](#deployment-of-azure-resource-exemptions---bicep-1)
+    - [Deployment of Guest Config VM Extension - JSON](#deployment-of-guest-config-vm-extension---json)
+    - [Deployment of Guest Config Policies - JSON](#deployment-of-guest-config-policies---json)
 
 
 
@@ -125,6 +126,10 @@ Run the `deploy-AzureBicepResources.ps1` file in the [03 Deployment of Azure Pol
 
 Run the `deploy-AzureBicepResources.ps1` file in the [03 Deployment of Azure Resource Exemptions (BICEP)](/03%20Deployment%20of%20Azure%20Resource%20Exemptions%20(BICEP)/parentTemplates) folder.
 
-### Deployment of Azure Resource Exemptions - BICEP
+### Deployment of Guest Config VM Extension - JSON
 
-Run the `deploy-guestConfigurationPolicies.ps1` file in the [04 Deployment of Guest Config Policies (system)](/04%20Deployment%20of%20Guest%20Config%20Policies%20(system)/parentTemplates) folder.
+Run the `deploy-guestConfigurationPolicies.ps1` file in the [04 Deployment of Guest Config VM Extension](/04%20Deployment%20of%20Guest%20Config%20VM%20Extension/parent_PolicyTemplates/) folder.
+
+### Deployment of Guest Config Policies - JSON
+
+Run the `deploy-guestConfigurationPolicies.ps1` file in the [04 Deployment of Guest Config Policies](/04%20Deployment%20of%20Guest%20Config%20Policies/parent_PolicyTemplates/) folder.

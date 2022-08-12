@@ -1,6 +1,6 @@
 targetScope = 'managementGroup'
 
-param DCR_ResourceGroupName string = 'Company_PaaS'
+param IaaS_ResourceGroupName string = 'Company_IaaS'
 param DCR_Name string = 'AllSystemInformation'
 
 param listOfAllowedLocations array = [
@@ -30,7 +30,7 @@ var policyAssignments_RG_var = [
     }
     parameters: {
       DcrResourceId: {
-        value: resourceId(subscriptionID, DCR_ResourceGroupName, 'Microsoft.Insights/dataCollectionRules', DCR_Name)
+        value: resourceId(subscriptionID, IaaS_ResourceGroupName, 'Microsoft.Insights/dataCollectionRules', DCR_Name)
       }
     }
     nonComplianceMessages: [
@@ -39,7 +39,7 @@ var policyAssignments_RG_var = [
       }
     ]
     subscriptionId: subscriptionID
-    resourceGroupName: DCR_ResourceGroupName
+    resourceGroupName: IaaS_ResourceGroupName
 
   }
 ]
@@ -75,7 +75,7 @@ var roleAssignments_RG_var = [
     roleDefinitionId: Virtual_Machine_Contributor
     principalType: 'ServicePrincipal'
     subscriptionId: subscriptionID
-    resourceGroupName: DCR_ResourceGroupName
+    resourceGroupName: IaaS_ResourceGroupName
   }
   {
     policyAssignmentName: 'AzureMonitorAgent_DCR'
@@ -83,7 +83,7 @@ var roleAssignments_RG_var = [
     roleDefinitionId: Monitoring_Contributor
     principalType: 'ServicePrincipal'
     subscriptionId: subscriptionID
-    resourceGroupName: DCR_ResourceGroupName
+    resourceGroupName: IaaS_ResourceGroupName
   }
   {
     policyAssignmentName: 'AzureMonitorAgent_DCR'
@@ -91,7 +91,7 @@ var roleAssignments_RG_var = [
     roleDefinitionId: Log_Analytics_Contributor
     principalType: 'ServicePrincipal'
     subscriptionId: subscriptionID
-    resourceGroupName: DCR_ResourceGroupName
+    resourceGroupName: IaaS_ResourceGroupName
   }
 ]
 
@@ -155,7 +155,7 @@ module ra '../child_PolicyTemplates/role_assignments.bicep' = [for roleAssignmen
     name: guid(roleAssignment.roleAssignmentName, roleAssignment.policyAssignmentName, uniqueString(subscriptionDisplayName))
     roleDefinitionId: roleAssignment.roleDefinitionId
     principalType: roleAssignment.principalType
-    principalId: reference(resourceId(subscriptionID, DCR_ResourceGroupName, 'Microsoft.Authorization/policyAssignments', policyAssignments_RG_var[0].policyAssignmentName), '2022-06-01', 'full').identity.principalId
+    principalId: reference(resourceId(subscriptionID, IaaS_ResourceGroupName, 'Microsoft.Authorization/policyAssignments', policyAssignments_RG_var[0].policyAssignmentName), '2022-06-01', 'full').identity.principalId
   }
   dependsOn: [
     pa1

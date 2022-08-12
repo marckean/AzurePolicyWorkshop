@@ -1,171 +1,71 @@
 {
     "$schema": "https://schema.management.azure.com/schemas/2019-08-01/managementGroupDeploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
-    "metadata": {
-        "_generator": {
-            "name": "bicep",
-            "version": "0.5.6.12127",
-            "templateHash": "1532257987028557958"
-        }
-    },
     "parameters": {
-        "location": {
+        "policyAssignmentEnforcementMode": {
             "type": "string",
-            "defaultValue": "australiaeast",
+            "allowedValues": [
+                "Default",
+                "DoNotEnforce"
+            ],
+            "defaultValue": "Default",
             "metadata": {
-                "description": "role Definition Id Name (Storage Account Contributor)"
+                "description": "Input will determine if the policyAssignment should be enforced or not."
             }
         },
-        "DefMgmtGroupID": {
+        "policyDefinitionId": {
             "type": "string",
+            "defaultValue": "/providers/Microsoft.Authorization/policySetDefinitions/12794019-7a00-42cf-95c2-882eed337cc8",
             "metadata": {
-                "description": "Management Group Id for the Policy Definition"
+                "description": "Provide the policyDefinition resourceId"
             }
         },
-        "policyDefinitionName01": {
+        "policyAssignmentName": {
             "type": "string",
-            "metadata": {
-                "description": "Definition ID of the Policy Initiative"
-            }
+            "defaultValue": "enableGuestConfigVMs"
         },
-        "policyDefinitionName02": {
+        "policyDescription": {
             "type": "string",
-            "metadata": {
-                "description": "Definition ID of the Policy Initiative"
-            }
+            "defaultValue": "This initiative adds a system-assigned managed identity and deploys the platform-appropriate Guest Configuration extension to virtual machines that are eligible to be monitored by Guest Configuration policies. This is a prerequisite for all Guest Configuration policies and must be assigned to the policy assignment scope before using any Guest Configuration policy. For more information on Guest Configuration, visit https://aka.ms/gcpol."
         },
-        "policyDefinitionName03": {
+        "displayName": {
             "type": "string",
-            "metadata": {
-                "description": "Definition ID of the Policy Initiative"
-            }
-        },
-        "ownerRoleDefinitionId": {
-            "type": "string",
-            "defaultValue": "8e3af657-a8ff-443c-a75c-2fe8c4bcb635",
-            "metadata": {
-                "description": "Owner built-in role definiton Id"
-            }
-        },
-        "UAARoleDefinitionId": {
-            "type": "string",
-            "defaultValue": "18d7d88d-d35e-4fb5-a5c3-7773c20a72d9",
-            "metadata": {
-                "description": "User Access Administrator built-in role definiton Id"
-            }
+            "defaultValue": "Deploy prerequisites to enable Guest Configuration policies on virtual machines"
         }
     },
     "variables": {
-        "policies": {
-            "policyAssignments": [
-                { // One
-                    "PolicyAssignmentName": "GuestConfig_User-Assigned Identity",
-                    "location": "[parameters('location')]",
-                    "policyAssignmentProperties": {
-                        "displayName": "Add user-assigned managed identity to enable Guest Configuration assignments on virtual machines",
-                        "enforcementMode": "Default",
-                        "policyDefinitionId": "[extensionResourceId(parameters('DefMgmtGroupID'), 'Microsoft.Authorization/policyDefinitions', parameters('policyDefinitionName01'))]",
-                        "nonComplianceMessages": "Couldn't add user-assigned managed identity to enable Guest Configuration assignments on virtual machines"
-                    }
-                },
-                { // Two
-                    "PolicyAssignmentName": "GuestConfig__DeployWindowsExtension",
-                    "location": "[parameters('location')]",
-                    "policyAssignmentProperties": {
-                        "displayName": "Deploy the Windows Guest Configuration extension to enable Guest Configuration assignments on Windows VMs",
-                        "enforcementMode": "Default",
-                        "policyDefinitionId": "[extensionResourceId(parameters('DefMgmtGroupID'), 'Microsoft.Authorization/policyDefinitions', parameters('policyDefinitionName02'))]",
-                        "nonComplianceMessages": "Couldn't deploy the Windows Guest Configuration extension to enable Guest Configuration assignments on Windows VMs"
-                    }
-                },
-                { // Three
-                    "PolicyAssignmentName": "GuestConfig_DeployLinuxExtension",
-                    "location": "[parameters('location')]",
-                    "policyAssignmentProperties": {
-                        "displayName": "Deploy the Linux Guest Configuration extension to enable Guest Configuration assignments on Linux VMs",
-                        "enforcementMode": "Default",
-                        "policyDefinitionId": "[extensionResourceId(parameters('DefMgmtGroupID'), 'Microsoft.Authorization/policyDefinitions', parameters('policyDefinitionName03'))]",
-                        "nonComplianceMessages": "Couldn't deploy the Linux Guest Configuration extension to enable Guest Configuration assignments on Linux VMs"
-                    }
-                }
-            ]
-        }
+        "Contributor": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', 'b24988ac-6180-42a0-ab88-20f7382dd24c')]",
     },
     "resources": [
-        { // Azure role assignment for the User Assigned Identity policy
-            "type": "Microsoft.Authorization/roleAssignments",
-            "apiVersion": "2020-10-01-preview",
-            "name": "[guid('Azure Owner role assignment for the User Assigned Identity policy')]",
-            "dependsOn": [
-                "policyAssignmentCopy"
-            ],
-            "properties": {
-                "roleDefinitionId": "[concat('/providers/Microsoft.Authorization/roleDefinitions/', parameters('ownerRoleDefinitionId'))]",
-                "principalType": "ServicePrincipal",
-                "principalId": "[reference(resourceId('Microsoft.Authorization/policyAssignments', variables('policies').policyAssignments[0].PolicyAssignmentName), '2021-06-01', 'full').identity.principalId]"
-            }
-        },
-        { // Azure role assignment for the User Assigned Identity policy
-            "type": "Microsoft.Authorization/roleAssignments",
-            "apiVersion": "2020-10-01-preview",
-            "name": "[guid('Azure User Access Administrator role assignment for the User Assigned Identity policy')]",
-            "dependsOn": [
-                "policyAssignmentCopy"
-            ],
-            "properties": {
-                "roleDefinitionId": "[concat('/providers/Microsoft.Authorization/roleDefinitions/', parameters('UAARoleDefinitionId'))]",
-                "principalType": "ServicePrincipal",
-                "principalId": "[reference(resourceId('Microsoft.Authorization/policyAssignments', variables('policies').policyAssignments[0].PolicyAssignmentName), '2021-06-01', 'full').identity.principalId]"
-            }
-        },
-        { // https://docs.microsoft.com/en-us/azure/templates/microsoft.policyinsights/2019-07-01/remediations?tabs=json#remediationfilters
-            "type": "Microsoft.PolicyInsights/remediations",
-            "apiVersion": "2021-10-01",
-            "name": "Remediation for the User Assigned Identity policy",
-            "properties": {
-                "filters": {
-                    "locations": [
-                        "[parameters('location')]"
-                    ]
-                },
-                "policyAssignmentId": "[resourceId('Microsoft.Authorization/policyAssignments', variables('policies').policyAssignments[0].PolicyAssignmentName)]",
-                "policyDefinitionReferenceId": "[extensionResourceId(parameters('DefMgmtGroupID'), 'Microsoft.Authorization/policyDefinitions', parameters('policyDefinitionName01'))]",
-                "resourceDiscoveryMode": "ExistingNonCompliant",
-                "failureThreshold": {
-                    "percentage": 1
-                },
-                "parallelDeployments": 10,
-                "resourceCount": 500
-            },
-            "dependsOn": [
-                "policyAssignmentCopy",
-                "[guid('Azure Owner role assignment for the User Assigned Identity policy')]",
-                "[guid('Azure User Access Administrator role assignment for the User Assigned Identity policy')]"
-            ]
-        },
-        { // Assign all policy assignments
+        {
             "type": "Microsoft.Authorization/policyAssignments",
-            "apiVersion": "2020-09-01",
-            "location": "[variables('policies').policyAssignments[copyIndex()].location]",
-            "name": "[variables('policies').policyAssignments[copyIndex()].PolicyAssignmentName]",
-            "copy": {
-                "name": "policyAssignmentCopy",
-                "count": "[length(variables('policies').policyAssignments)]"
-            },
+            "apiVersion": "2019-09-01",
+            "name": "[parameters('policyAssignmentName')]",
             "identity": {
                 "type": "SystemAssigned"
             },
-
+            "location": "[deployment().location]",
             "properties": {
-                
-                "displayName": "[variables('policies').policyAssignments[copyIndex()].policyAssignmentProperties.displayName]",
-                "enforcementMode": "[variables('policies').policyAssignments[copyIndex()].policyAssignmentProperties.enforcementMode]",
-                "policyDefinitionId": "[variables('policies').policyAssignments[copyIndex()].policyAssignmentProperties.policyDefinitionId]",
-                "nonComplianceMessages": [
-                    {
-                        "message": "[variables('policies').policyAssignments[copyIndex()].policyAssignmentProperties.nonComplianceMessages]"
-                    }
-                ]
+                "description": "[parameters('policyDescription')]",
+                "displayName": "[parameters('displayName')]",
+                "policyDefinitionId": "[parameters('policyDefinitionId')]",
+                "enforcementMode": "[parameters('policyAssignmentEnforcementMode')]",
+                "parameters": {
+
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Authorization/roleAssignments",
+            "apiVersion": "2020-10-01-preview",
+            "name": "[guid('RoleAssignment', parameters('policyAssignmentName'), uniqueString(subscription().displayName))]",
+            "dependsOn": [
+                "[parameters('policyAssignmentName')]"
+            ],
+            "properties": {
+                "roleDefinitionId": "[variables('Contributor')]",
+                "principalType": "ServicePrincipal",
+                "principalId": "[reference(resourceId('Microsoft.Authorization/policyAssignments', parameters('policyAssignmentName')), '2021-06-01', 'full').identity.principalId]"
             }
         }
     ]

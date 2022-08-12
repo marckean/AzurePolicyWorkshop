@@ -5,21 +5,16 @@ param (
 )
 
 New-AzTemplateSpec `
-  -Name 'Child_GuestConfigurationAssignments' `
+  -Name 'Child_GuestConfigurationAssignmentsSystem' `
   -Version "1.0.0" `
   -ResourceGroupName $ts_resourcegroupname `
   -Location $location `
-  -TemplateFile ".\04 Deployment of Guest Config Policies\child_PolicyTemplates\policyAssignments.json" `
+  -TemplateFile ".\04 Deployment of Guest Config Policies (system)\parent_PolicyTemplates\parentGuestConfiguration.json" `
   -Force
 
-  New-AzTemplateSpec `
-  -Name 'Child_GuestConfigurationDefinitions' `
-  -Version "1.0.0" `
-  -ResourceGroupName $ts_resourcegroupname `
-  -Location $location `
-  -TemplateFile ".\04 Deployment of Guest Config Policies\child_PolicyTemplates\policyDefinitions.json" `
-  -Force
 
 $TimeNow = Get-Date -Format yyyyMMdd-hhmm
 
-New-AzManagementGroupDeployment -Location $location -TemplateFile '.\04 Deployment of Guest Config Policies\parent_PolicyTemplates\parentGuestConfiguration.json' -ManagementGroupId $ManagementGroupId -Name $TimeNow -Verbose -ErrorAction Continue
+#New-AzManagementGroupDeployment -Location $location -TemplateFile '.\03 Deployment of Guest Config Policies (system)\parent_PolicyTemplates\parentGuestConfiguration.json' -ManagementGroupId $ManagementGroupId -Name $TimeNow -Verbose -ErrorAction Continue
+
+New-AzSubscriptionDeployment -Location $location -TemplateFile '.\04 Deployment of Guest Config Policies (system)\child_PolicyTemplates\policyAssignments.json' -Name $TimeNow -Verbose -ErrorAction Continue

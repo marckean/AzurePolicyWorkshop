@@ -8,6 +8,11 @@
   - [Labs](#labs)
     - [Setup the local tools & environment](#setup-the-local-tools--environment)
     - [Deployment of Azure resources](#deployment-of-azure-resources)
+    - [Deployment of Azure Custom Policies - JSON](#deployment-of-azure-custom-policies---json)
+    - [Deployment of Azure Built-In Policies - BICEP](#deployment-of-azure-built-in-policies---bicep)
+    - [Deployment of Azure Policy Exemptions - BICEP](#deployment-of-azure-policy-exemptions---bicep)
+    - [Deployment of Azure Resource Exemptions - BICEP](#deployment-of-azure-resource-exemptions---bicep)
+    - [Deployment of Azure Resource Exemptions - BICEP](#deployment-of-azure-resource-exemptions---bicep-1)
 
 
 
@@ -100,10 +105,26 @@
 ![](blobs/Bicep.png)
 
 
-
-
-
-
 ### Deployment of Azure resources
 
-Run the `_deploy-AzureBicepResources.ps1` file in the [Deployment of Azure resources](/Deployment%20of%20Azure%20resources/) folder.
+Run the `deploy-AzureBicepResources.ps1` file in the [01 Deployment of Azure resources](/01%20Deployment%20of%20Azure%20resources/parentTemplates/) folder.
+
+### Deployment of Azure Custom Policies - JSON
+
+Run the `deploy-AzureResourcePolicies.ps1` file in the [02 Deployment of Azure Resource Policies (JSON)](/02%20Deployment%20of%20Azure%20Resource%20Policies%20(JSON)/parentTemplates) folder.
+
+### Deployment of Azure Built-In Policies - BICEP
+
+Run the `deploy-AzureBicepResources.ps1` file in the [02 Deployment of Azure Resource Policies (BICEP)](/02%20Deployment%20of%20Azure%20Resource%20Policies%20(BICEP)/parentTemplates) folder.
+
+### Deployment of Azure Policy Exemptions - BICEP
+
+Run the `deploy-AzureBicepResources.ps1` file in the [03 Deployment of Azure Policy Exemption (BICEP)](/03%20Deployment%20of%20Azure%20Policy%20Exemption%20(BICEP)/parentTemplates) folder.
+
+### Deployment of Azure Resource Exemptions - BICEP
+
+Run the `deploy-AzureBicepResources.ps1` file in the [03 Deployment of Azure Resource Exemptions (BICEP)](/03%20Deployment%20of%20Azure%20Resource%20Exemptions%20(BICEP)/parentTemplates) folder.
+
+### Deployment of Azure Resource Exemptions - BICEP
+
+Run the `deploy-guestConfigurationPolicies.ps1` file in the [04 Deployment of Guest Config Policies (system)](/04%20Deployment%20of%20Guest%20Config%20Policies%20(system)/parentTemplates) folder.

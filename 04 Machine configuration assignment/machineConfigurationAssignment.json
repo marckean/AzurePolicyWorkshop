@@ -1,0 +1,22 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "resources": [
+      {
+        "apiVersion": "2021-01-25",
+        "type": "Microsoft.Compute/virtualMachines/providers/guestConfigurationAssignments",
+        "name": "myMachine/Microsoft.GuestConfiguration/myConfig",
+        "location": "westus2",
+        "properties": {
+          "guestConfiguration": {
+            "name": "myConfig",
+            "contentUri": "https://mystorageaccount.blob.core.windows.net/mystoragecontainer/myConfig.zip?sv=SASTOKEN",
+            "contentHash": "SHA256HASH",
+            "version": "1.0.0",
+            "assignmentType": "ApplyAndMonitor",
+            "configurationParameter": {}
+          }
+        }
+      }
+    ]
+  }

@@ -1,4 +1,8 @@
+# Sign-in
 Connect-AzAccount
+
+Get-AzSubscription
+Set-AzContext -SubscriptionId '7ac51792-8ea1-4ea8-be56-eb515e42aadf'
 
 $ManagementGroupId = "8efecb12-cbaa-4612-b850-e6a68c14d336" # this is the root Management Group ID
 $location = "australiaeast"

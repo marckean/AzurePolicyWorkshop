@@ -124,4 +124,4 @@ Node $env:COMPUTERNAME
   }
 }
 
-Main -OutputPath ".\04 Deployment of Guest Config Policies\dscConfig_files"
+Main -OutputPath ".\04 Deployment of Guest Config Policies\01 dscConfig_files"

@@ -18,5 +18,7 @@ $paramObject = @{
 # All test Azure resources including NSGs & NSG Security Rukles as both top level resources
 New-AzManagementGroupDeployment -Location $location -TemplateFile './01 Deployment of Azure resources\parentTemplates\main.bicep' -ManagementGroupId $ManagementGroupId -Name $TimeNow -TemplateParameterObject $paramObject -Verbose
 
+
+
 # NSGs with the Security Rules as sub-resources
 New-AzManagementGroupDeployment -Location $location -TemplateFile './01 Deployment of Azure resources\parentTemplates\main(nsg).bicep' -ManagementGroupId $ManagementGroupId -Name $TimeNow -Verbose

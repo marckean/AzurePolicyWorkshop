@@ -182,15 +182,6 @@ module userAssignedIdentity_02 '../childTemplates/userAssignedIdentity.bicep' = 
   }
 }
 
-// Management Group scope
-module roleAssignment_01 '../childTemplates/roleAssignment.bicep' = {
-  name: 'Company_roleAssignment_01'
-  scope: managementGroup(ManagemantGroup)
-  params: {
-    principalId: userAssignedIdentity_01.outputs.principalId
-  }
-}
-
 // Resource Group scope
 module nsg1 '../childTemplates/nsg_rules.bicep' = {
   scope: resourceGroup(subscriptionID, resourceGroups_var[3].resourceGroupName)

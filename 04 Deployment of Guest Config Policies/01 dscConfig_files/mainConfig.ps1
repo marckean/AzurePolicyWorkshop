@@ -125,3 +125,5 @@ Node $env:COMPUTERNAME
 }
 
 Main -OutputPath ".\04 Deployment of Guest Config Policies\01 dscConfig_files"
+
+Install-Module -Name GuestConfiguration -Scope CurrentUser -Repository PSGallery -Force

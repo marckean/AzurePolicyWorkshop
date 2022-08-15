@@ -193,6 +193,9 @@ module nsg1 '../childTemplates/nsg_rules.bicep' = {
   ]
 }
 
+var HAKeyVaultRightName = 'right-${guid(deployment().name)}'
+var HAKeyVaultWrongName = 'wrong-${guid(deployment().name)}'
+
 // Resource Group scope
 module kv1 '../childTemplates/KeyVault.bicep' = {
   scope: resourceGroup(subscriptionID, resourceGroups_var[1].resourceGroupName)
@@ -201,6 +204,8 @@ module kv1 '../childTemplates/KeyVault.bicep' = {
     location: resourceGroupModule[0].outputs.RGLocation
     tenantID: tenantID
     objectID: userAssignedIdentity_02.outputs.principalId
+    HAKeyVaultRightName: take(HAKeyVaultRightName, 21)
+    HAKeyVaultWrongName: take(HAKeyVaultWrongName, 21)
   }
   dependsOn: [
     resourceGroupModule

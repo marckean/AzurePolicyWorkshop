@@ -1,9 +1,11 @@
 param location string = resourceGroup().location
 param tenantID string
 param objectID string
+param HAKeyVaultRightName string
+param HAKeyVaultWrongName string
 
 resource kv1 'Microsoft.KeyVault/vaults@2021-10-01' = {
-    name: 'HAKeyVaultRight'
+    name: HAKeyVaultRightName
     location: location
     properties:{
         sku: {
@@ -32,7 +34,7 @@ resource kv1 'Microsoft.KeyVault/vaults@2021-10-01' = {
 }
 
 resource kv2 'Microsoft.KeyVault/vaults@2021-10-01' = {
-    name: 'HAKeyVaultWrong'
+    name: HAKeyVaultWrongName
     location: location
     properties:{
         sku: {

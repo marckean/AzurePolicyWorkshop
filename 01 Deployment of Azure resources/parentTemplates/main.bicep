@@ -7,7 +7,6 @@ param vm_username string = ''
 // Tenant
 var subscriptionID = '7ac51792-8ea1-4ea8-be56-eb515e42aadf'
 var tenantID = '8efecb12-cbaa-4612-b850-e6a68c14d336'
-var ManagemantGroup = 'Test'
 
 // Resource Groups
 var resourceGroups_var = [

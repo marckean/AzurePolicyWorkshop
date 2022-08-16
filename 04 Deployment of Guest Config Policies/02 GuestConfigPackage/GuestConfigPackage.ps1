@@ -5,3 +5,4 @@ New-GuestConfigurationPackage `
 -Type AuditAndSet `
 -Path '.\04 Deployment of Guest Config Policies\02 GuestConfigPackage'
 -Force
+

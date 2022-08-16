@@ -8,7 +8,7 @@ var exemptions_var = [
     name: 'exemptFromLocationRestrictions'
     displayName: 'Exempt from restricted locations, can deploy resources in any location'
     description: 'Exempt from restricted locations, can deploy resources in any location'
-    policyAssignmentId: '/subscriptions/7ac51792-8ea1-4ea8-be56-eb515e42aadf/providers/Microsoft.Authorization/policyAssignments/Allowed_Locations'
+    policyAssignmentId: '/subscriptions/${subscriptionID}/providers/Microsoft.Authorization/policyAssignments/Allowed_Locations'
     exemptionCategory: 'Mitigated'
     policyDefinitionReferenceIds: [
     ]

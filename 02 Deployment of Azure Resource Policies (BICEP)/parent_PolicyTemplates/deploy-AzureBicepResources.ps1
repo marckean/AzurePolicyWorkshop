@@ -1,6 +1,6 @@
 Connect-AzAccount
 
-$ManagementGroupId = "8efecb12-cbaa-4612-b850-e6a68c14d336" # this is the root Management Group ID
+$ManagementGroupId = "TEST" # this is the root Management Group ID
 $location = "australiaeast"
 
 $TimeNow = Get-Date -Format yyyyMMdd-hhmm

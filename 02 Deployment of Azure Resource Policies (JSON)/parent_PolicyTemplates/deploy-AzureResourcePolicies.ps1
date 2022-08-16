@@ -1,8 +1,12 @@
 param (
-    $ManagementGroupId = "8efecb12-cbaa-4612-b850-e6a68c14d336",
+    $ManagementGroupId = "Test",
     $location = "australiaeast",
     $ts_resourcegroupname = "TemplateSpecs"
 )
+
+# Create a resource group for the template specs if needed
+$TSRG = Get-AzResourceGroup -ResourceGroupName $ts_resourcegroupname -Location $location
+if($null -eq $TSRG){New-AzResourceGroup -Name $ts_resourcegroupname -Location $location}
 
 New-AzTemplateSpec `
   -Name 'Child_AzureResourceAssignments' `

@@ -11,7 +11,7 @@
     "parameters": {
         "targetMG": {
             "type": "string",
-            "defaultValue": "8efecb12-cbaa-4612-b850-e6a68c14d336",
+            "defaultValue": "Test",
             "metadata": {
                 "description": "Target Management Group"
             }
@@ -20,7 +20,7 @@
             "type": "string",
             "defaultValue": "7ac51792-8ea1-4ea8-be56-eb515e42aadf",
             "metadata": {
-                "description": "Target Management Group"
+                "description": "Target Sub ID"
             }
         },
         "targetRegion": {
@@ -39,7 +39,7 @@
         }
     },
     "variables": {
-        "DefmgScope": "[tenantResourceId('Microsoft.Management/managementGroups', parameters('targetMG'))]",
+        "DefmgScope": "[concat('Microsoft.Management/managementGroups/', parameters('targetMG'))]",
         "policyDefinitionName01": "DefSecTransStgAcct",
         "policyDefinitionName02": "DefNo_RDP_SSH",
         "policyDefinitionName03": "DefDenyCustRole",

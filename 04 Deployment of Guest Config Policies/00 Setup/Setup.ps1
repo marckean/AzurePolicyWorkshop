@@ -19,4 +19,15 @@ $remediation = $remediations | sort-object -Property CreatedOn -Descending | sel
 # Kick off Policy Remediation Task
 Start-AzPolicyRemediation -Name $remediation.Name -PolicyAssignmentId $remediation.PolicyAssignmentId
 
+#----------------------------------------
+# Install the module from the PowerShell Gallery
+#----------------------------------------
 
+# Install the machine configuration DSC resource module from PowerShell Gallery
+Install-Module -Name 'GuestConfiguration','PSDesiredStateConfiguration','PSDscResources' -AllowClobber -Force
+
+# Install the machine configuration - user
+Install-Module -Name GuestConfiguration -Scope CurrentUser -Repository PSGallery -Force
+
+# Get a list of commands for the imported GuestConfiguration module
+Get-Command -Module 'GuestConfiguration'

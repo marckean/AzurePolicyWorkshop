@@ -1,5 +1,5 @@
-$resourceGroupName = 'Company_GuestConfiguration'
-$storageAccountName = '20220816stgaccount' # change this, has to be globally unique
+$resourceGroupName = 'Company_GuestConfiguration2'
+$storageAccountName = '20220817stgaccount' # change this, has to be globally unique
 $storageContainerName = 'guestconfiguration'
 $location = 'australiaeast'
 $blob = 'MyConfig.zip'
@@ -8,9 +8,11 @@ $blob = 'MyConfig.zip'
 # Publish the config package to the storage account
 #-------------------------------------------------------------
 
+
+
 # If you don't have a storage account, use the following example to create one
 # Creates a new resource group, storage account, and container
-if(!(Get-AzStorageAccount -Name $storageAccountName -ResourceGroupName $resourceGroupName)){
+if(!(Get-AzStorageAccount -Name $storageAccountName -ResourceGroupName $resourceGroupName -ErrorAction silentlycontinue)){
 New-AzResourceGroup -name $resourceGroupName -Location $location
 New-AzStorageAccount -ResourceGroupName $resourceGroupName -Name $storageAccountName -SkuName 'Standard_LRS' -Location $location | New-AzStorageContainer -Name $storageContainerName -Permission Blob
 }

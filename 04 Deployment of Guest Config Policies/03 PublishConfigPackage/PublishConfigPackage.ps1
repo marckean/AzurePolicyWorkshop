@@ -1,5 +1,5 @@
 $resourceGroupName = 'Company_GuestConfiguration'
-$storageAccountName = '20220816stgaccount'
+$storageAccountName = '20220816stgaccount' # change this, has to be globally unique
 $storageContainerName = 'guestconfiguration'
 $location = 'australiaeast'
 $blob = 'MyConfig.zip'
@@ -11,7 +11,7 @@ $blob = 'MyConfig.zip'
 # If you don't have a storage account, use the following example to create one
 # Creates a new resource group, storage account, and container
 if(!(Get-AzStorageAccount -Name $storageAccountName -ResourceGroupName $resourceGroupName)){
-New-AzResourceGroup -name $resourceGroupName -Location WestUS
+New-AzResourceGroup -name $resourceGroupName -Location $location
 New-AzStorageAccount -ResourceGroupName $resourceGroupName -Name $storageAccountName -SkuName 'Standard_LRS' -Location $location | New-AzStorageContainer -Name $storageContainerName -Permission Blob
 }
 
@@ -46,6 +46,10 @@ $Params = @{
 
 # Create the guest configuration policy
 New-GuestConfigurationPolicy @Params
+
+#-------------------------------------------------------------
+# Deploy the policy definition to Azure
+#-------------------------------------------------------------
 
 # Publish the guest configuration policy
 New-AzPolicyDefinition -Name 'myFirstMachineConfigDefinition' -Policy './04 Deployment of Guest Config Policies\03 PublishConfigPackage\Policies\MyConfig_DeployIfNotExists.json'

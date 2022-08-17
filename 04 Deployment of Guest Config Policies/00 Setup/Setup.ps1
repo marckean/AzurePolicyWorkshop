@@ -27,7 +27,7 @@ Start-AzPolicyRemediation -Name $remediation.Name -PolicyAssignmentId $remediati
 Install-Module -Name 'GuestConfiguration','PSDesiredStateConfiguration','PSDscResources' -AllowClobber -Force
 
 # Install the machine configuration - user
-Install-Module -Name GuestConfiguration -Scope CurrentUser -Repository PSGallery -Force
+Install-Module -Name 'GuestConfiguration','PSDesiredStateConfiguration','PSDscResources' -Scope CurrentUser -Repository PSGallery -AllowClobber -Force
 
 # Get a list of commands for the imported GuestConfiguration module
 Get-Command -Module 'GuestConfiguration'

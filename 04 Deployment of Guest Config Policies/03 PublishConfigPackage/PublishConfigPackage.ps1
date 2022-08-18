@@ -16,19 +16,17 @@ New-AzStorageAccount -ResourceGroupName $resourceGroupName -Name $storageAccount
 }
 
 # Creates a new context for an existing storage account
-$ConnectionString = Read-Host "Enter your storage account connection string" -AsSecureString
-$Context = New-AzStorageContext -ConnectionString (ConvertFrom-SecureString -SecureString $ConnectionString -AsPlainText)
+$context = (Get-AzStorageAccount -Name $storageAccountName -ResourceGroupName $resourceGroupName).context
 
 # Next, add the configuration package to the storage account. This example uploads the zip file ./MyConfig.zip to the blob "guestconfiguration".
 Set-AzStorageBlobContent -Container $storageContainerName -File './04 Deployment of Guest Config Policies\02 GuestConfigPackage\MyConfig.zip' -Context $Context -Force
 
 # Optionally, you can add a SAS token in the URL, this ensures that the content package will be accessed securely. The below example generates a blob SAS token with full blob permission and returns the full blob URI with the shared access signature token
-$contenturi = New-AzStorageBlobSASToken -Context $Context -FullUri -Container $storageContainerName -Blob $blob -Permission rwd
+$contenturi = New-AzStorageBlobSASToken -Context $Context -FullUri -Container $storageContainerName -Blob $blob -Permission rwd -ExpiryTime (Get-Date).AddYears(1)
 
 #-------------------------------------------------------------
 # Publish the policy definition
 #-------------------------------------------------------------
-
 # Create a Policy Id
 $PolicyId = $(New-GUID)
 # Define the parameters to create and publish the guest configuration policy

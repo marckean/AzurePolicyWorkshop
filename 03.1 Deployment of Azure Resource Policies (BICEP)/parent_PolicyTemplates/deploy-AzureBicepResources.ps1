@@ -12,8 +12,8 @@ $paramObject = @{
   }
 
 # All test Azure resources including NSGs & NSG Security Rukles as both top level resources
-New-AzManagementGroupDeployment -Location $variables.location -TemplateFile './02 Deployment of Azure Resource Policies (BICEP)\parent_PolicyTemplates\main.bicep' -ManagementGroupId $variables.ManagementGroupId -Name $TimeNow -TemplateParameterObject $paramObject -Verbose
+New-AzManagementGroupDeployment -Location $variables.location -TemplateFile '.\03.1 Deployment of Azure Resource Policies (BICEP)\parent_PolicyTemplates\main.bicep' -ManagementGroupId $variables.ManagementGroupId -Name $TimeNow -TemplateParameterObject $paramObject -Verbose
 
 # Testing
-Test-AzManagementGroupDeployment -Location $variables.location -TemplateFile './02 Deployment of Azure Resource Policies (BICEP)\parent_PolicyTemplates\main.bicep' -ManagementGroupId $variables.ManagementGroupId -Name $TimeNow -TemplateParameterObject $paramObject -Verbose
+Test-AzManagementGroupDeployment -Location $variables.location -TemplateFile '.\03.1 Deployment of Azure Resource Policies (BICEP)\parent_PolicyTemplates\main.bicep' -ManagementGroupId $variables.ManagementGroupId -Name $TimeNow -TemplateParameterObject $paramObject -Verbose
 

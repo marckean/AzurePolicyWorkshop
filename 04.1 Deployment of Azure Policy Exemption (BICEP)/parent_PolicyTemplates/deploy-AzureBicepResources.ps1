@@ -9,7 +9,7 @@ $paramObject = @{
   }
 
 # All test Azure resources including NSGs & NSG Security Rukles as both top level resources
-New-AzManagementGroupDeployment -Location $variables.location -TemplateFile './03 Deployment of Azure Policy Exemption (BICEP)\parent_PolicyTemplates\main.bicep' -ManagementGroupId $variables.ManagementGroupId -TemplateParameterObject $paramObject -Name $TimeNow -Verbose
+New-AzManagementGroupDeployment -Location $variables.location -TemplateFile '.\04.1 Deployment of Azure Policy Exemption (BICEP)\parent_PolicyTemplates\main.bicep' -ManagementGroupId $variables.ManagementGroupId -TemplateParameterObject $paramObject -Name $TimeNow -Verbose
 
 # Testing
-Test-AzManagementGroupDeployment -Location $variables.location -TemplateFile './03 Deployment of Azure Policy Exemption (BICEP)\parent_PolicyTemplates\main.bicep' -ManagementGroupId $variables.ManagementGroupId -TemplateParameterObject $paramObject -Name $TimeNow -Verbose
+Test-AzManagementGroupDeployment -Location $variables.location -TemplateFile '.\04.1 Deployment of Azure Policy Exemption (BICEP)\parent_PolicyTemplates\main.bicep' -ManagementGroupId $variables.ManagementGroupId -TemplateParameterObject $paramObject -Name $TimeNow -Verbose

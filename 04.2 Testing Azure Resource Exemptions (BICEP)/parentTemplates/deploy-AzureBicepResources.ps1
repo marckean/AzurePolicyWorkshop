@@ -11,8 +11,8 @@ $paramObject = @{
   }
 
 # Correct Deployment which adheres to Policy
-New-AzManagementGroupDeployment -Location $variables.location -TemplateFile './03 Testing Azure Resource Exemptions (BICEP)\parentTemplates\main_correct.bicep' -ManagementGroupId $variables.ManagementGroupId -TemplateParameterObject $paramObject -Name $TimeNow -Verbose
+New-AzManagementGroupDeployment -Location $variables.location -TemplateFile '.\04.2 Testing Azure Resource Exemptions (BICEP)\parentTemplates\main_correct.bicep' -ManagementGroupId $variables.ManagementGroupId -TemplateParameterObject $paramObject -Name $TimeNow -Verbose
 
 # Wrong Deployment which doesn't adhere to Policy
-New-AzManagementGroupDeployment -Location $variables.location -TemplateFile './03 Testing Azure Resource Exemptions (BICEP)\parentTemplates\main_wrong.bicep' -ManagementGroupId $variables.ManagementGroupId -TemplateParameterObject $paramObject -Name $TimeNow -Verbose
+New-AzManagementGroupDeployment -Location $variables.location -TemplateFile '.\04.2 Testing Azure Resource Exemptions (BICEP)\parentTemplates\main_wrong.bicep' -ManagementGroupId $variables.ManagementGroupId -TemplateParameterObject $paramObject -Name $TimeNow -Verbose
 

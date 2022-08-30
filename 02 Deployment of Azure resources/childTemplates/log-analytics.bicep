@@ -78,6 +78,9 @@ resource DCR_AllSystemInformation 'Microsoft.Insights/dataCollectionRules@2021-0
       }
     ]
   }
+  dependsOn: [
+    LA_Parent
+  ]
 }
 
 resource DCR_AllSystemCritical 'Microsoft.Insights/dataCollectionRules@2021-04-01' = {
@@ -117,6 +120,9 @@ resource DCR_AllSystemCritical 'Microsoft.Insights/dataCollectionRules@2021-04-0
       }
     ]
   }
+  dependsOn: [
+    LA_Parent
+  ]
 }
 
 resource DCR_AccountLockoutEvents 'Microsoft.Insights/dataCollectionRules@2021-04-01' = {
@@ -157,6 +163,9 @@ resource DCR_AccountLockoutEvents 'Microsoft.Insights/dataCollectionRules@2021-0
       }
     ]
   }
+  dependsOn: [
+    LA_Parent
+  ]
 }
 
 resource DCR_ASREvents 'Microsoft.Insights/dataCollectionRules@2021-04-01' = {
@@ -197,6 +206,9 @@ resource DCR_ASREvents 'Microsoft.Insights/dataCollectionRules@2021-04-01' = {
       }
     ]
   }
+  dependsOn: [
+    LA_Parent
+  ]
 }
 
 resource DCR_NTLMEvents 'Microsoft.Insights/dataCollectionRules@2021-04-01' = {
@@ -236,6 +248,9 @@ resource DCR_NTLMEvents 'Microsoft.Insights/dataCollectionRules@2021-04-01' = {
       }
     ]
   }
+  dependsOn: [
+    LA_Parent
+  ]
 }
 
 resource DCR_ExploitProtectionEvents 'Microsoft.Insights/dataCollectionRules@2021-04-01' = {
@@ -278,6 +293,9 @@ resource DCR_ExploitProtectionEvents 'Microsoft.Insights/dataCollectionRules@202
       }
     ]
   }
+  dependsOn: [
+    LA_Parent
+  ]
 }
 
 resource DCR_IPsecEvents 'Microsoft.Insights/dataCollectionRules@2021-04-01' = {
@@ -318,6 +336,9 @@ resource DCR_IPsecEvents 'Microsoft.Insights/dataCollectionRules@2021-04-01' = {
       }
     ]
   }
+  dependsOn: [
+    LA_Parent
+  ]
 }
 
 resource DCR_NetworkProtectionEvents 'Microsoft.Insights/dataCollectionRules@2021-04-01' = {
@@ -358,6 +379,9 @@ resource DCR_NetworkProtectionEvents 'Microsoft.Insights/dataCollectionRules@202
       }
     ]
   }
+  dependsOn: [
+    LA_Parent
+  ]
 }
 
 resource DCR_SChannelEvents 'Microsoft.Insights/dataCollectionRules@2021-04-01' = {
@@ -397,6 +421,9 @@ resource DCR_SChannelEvents 'Microsoft.Insights/dataCollectionRules@2021-04-01' 
       }
     ]
   }
+  dependsOn: [
+    LA_Parent
+  ]
 }
 
 resource DCR_WDACEvents 'Microsoft.Insights/dataCollectionRules@2021-04-01' = {
@@ -436,6 +463,9 @@ resource DCR_WDACEvents 'Microsoft.Insights/dataCollectionRules@2021-04-01' = {
       }
     ]
   }
+  dependsOn: [
+    LA_Parent
+  ]
 }
 
 output storageId string = LA_Parent.id

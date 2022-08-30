@@ -15,4 +15,4 @@ $paramObject = @{
   }
 
 # NSGs with the Security Rules as sub-resources
-New-AzManagementGroupDeployment -Location $variables.location -TemplateFile './02 Testing Azure Policies\parentTemplates\main(nsg).bicep' -ManagementGroupId $variables.ManagementGroupId -TemplateParameterObject $paramObject -Name $TimeNow -Verbose
+New-AzManagementGroupDeployment -Location $variables.location -TemplateFile './03.3 Testing Azure Policies\parentTemplates\main(nsg).bicep' -ManagementGroupId $variables.ManagementGroupId -TemplateParameterObject $paramObject -Name $TimeNow -Verbose

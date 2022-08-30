@@ -3,7 +3,6 @@ Connect-AzAccount
 
 . './01 variables/variables.ps1' # Dot Source the variables
 
-Get-AzSubscription
 Set-AzContext -SubscriptionId $variables.subscription_id
 
 $adminPassword = Read-Host "Enter your local admin password for the VMs" -AsSecureString
@@ -17,7 +16,7 @@ $paramObject = @{
   }
 
 # All test Azure resources including NSGs & NSG Security Rukles as both top level resources
-New-AzManagementGroupDeployment -Location $variables.location -TemplateFile './01 Deployment of Azure resources\parentTemplates\main.bicep' -ManagementGroupId $variables.ManagementGroupId -Name $TimeNow -TemplateParameterObject $paramObject -Verbose
+New-AzManagementGroupDeployment -Location $variables.location -TemplateFile '.\02 Deployment of Azure resources\parentTemplates\main.bicep' -ManagementGroupId $variables.ManagementGroupId -Name $TimeNow -TemplateParameterObject $paramObject -Verbose
 
 
 

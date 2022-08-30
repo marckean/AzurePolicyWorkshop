@@ -9,9 +9,9 @@ param listOfAllowedLocations array = [
 ]
 
 // Tenant
-var subscriptionID = '7ac51792-8ea1-4ea8-be56-eb515e42aadf'
-var subscriptionDisplayName = 'CSR-CUSPOC-NMST-makean'
-var ManagemantGroup = 'Test'
+param subscriptionID string
+param subscriptionDisplayName string
+param ManagemantGroup string
 
 var location_var = 'australiaeast'
 var Virtual_Machine_Contributor = subscriptionResourceId('Microsoft.Authorization/roleDefinitions', '9980e02c-c2be-4d73-94e8-173b1dc7cf3c')

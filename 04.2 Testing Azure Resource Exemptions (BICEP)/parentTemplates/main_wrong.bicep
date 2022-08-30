@@ -2,9 +2,9 @@ targetScope = 'managementGroup'
 param localLocation string = 'australiaeast'
 param globalLocation string = 'eastus'
 
-var subscriptionID = '7ac51792-8ea1-4ea8-be56-eb515e42aadf'
-var globalResourceGroupName = 'Company_Open'
-var localResourceGroupName = 'Company_Network'
+param subscriptionID string = '7ac51792-8ea1-4ea8-be56-eb515e42aadf'
+param globalResourceGroupName string = 'Company_Open'
+param localResourceGroupName string = 'Company_Network'
 
 // Global deployment to the East US region in the global Resource Group
 module PIP_module1 '../childTemplates/public_IP_address.bicep' = {
@@ -13,6 +13,16 @@ module PIP_module1 '../childTemplates/public_IP_address.bicep' = {
   params: {
     location: globalLocation
     name: 'GlobalRegion_GlobalRG'
+  }
+}
+
+// Global deployment to the East US region in the local Resource Group
+module PIP_module2 '../childTemplates/public_IP_address.bicep' = {
+  scope: resourceGroup(subscriptionID, localResourceGroupName)
+  name: 'GlobalRegion_LocalRG'
+  params: {
+    location: globalLocation
+    name: 'GlobalRegion_LocalRG'
   }
 }
 

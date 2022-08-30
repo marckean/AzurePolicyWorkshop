@@ -4,9 +4,6 @@ New-AzResourceGroupDeployment -ResourceGroupName 'Company_IaaS' -TemplateFile '.
 
 
 
-
-
-
 ######## Testing - do not run
 $lastDeploymentName = (Get-AzSubscriptionDeployment | where {$_.ProvisioningState -ne 'Succeeded'} | sort Timestamp -Descending)[0].DeploymentName
 if($lastDeploymentName){Remove-AzSubscriptionDeployment -Name $lastDeploymentName}

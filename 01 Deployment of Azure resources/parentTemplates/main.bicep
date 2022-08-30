@@ -1,12 +1,12 @@
 targetScope = 'managementGroup'
 @secure()
-param secret_vm_password string = ''
+param secret_vm_password string
 
-param vm_username string = ''
+param vm_username string
 
 // Tenant
-var subscriptionID = '7ac51792-8ea1-4ea8-be56-eb515e42aadf'
-var tenantID = '8efecb12-cbaa-4612-b850-e6a68c14d336'
+param subscriptionID string = '7ac51792-8ea1-4ea8-be56-eb515e42aadf'
+param tenantID string = '8efecb12-cbaa-4612-b850-e6a68c14d336'
 
 // Resource Groups
 var resourceGroups_var = [

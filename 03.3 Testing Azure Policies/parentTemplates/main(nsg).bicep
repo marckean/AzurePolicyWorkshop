@@ -1,9 +1,8 @@
 targetScope = 'managementGroup'
 
-param RG_name string = 'Company_NSG'
-param location string = 'australiaeast'
-
-var subscriptionID = '7ac51792-8ea1-4ea8-be56-eb515e42aadf'
+param RG_name string
+param location string
+param subscriptionID string
 
 //https://docs.microsoft.com/en-us/azure/azure-resource-manager/bicep/deploy-to-management-group?tabs=azure-cli
 

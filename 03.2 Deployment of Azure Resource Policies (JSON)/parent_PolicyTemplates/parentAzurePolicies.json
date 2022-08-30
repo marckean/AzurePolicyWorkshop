@@ -11,28 +11,24 @@
     "parameters": {
         "targetMG": {
             "type": "string",
-            "defaultValue": "Test",
             "metadata": {
                 "description": "Target Management Group"
             }
         },
         "targetSubID": {
             "type": "string",
-            "defaultValue": "7ac51792-8ea1-4ea8-be56-eb515e42aadf",
             "metadata": {
                 "description": "Target Sub ID"
             }
         },
         "targetRegion": {
             "type": "string",
-            "defaultValue": "australiaeast",
             "metadata": {
                 "description": "Target Management Group"
             }
         },
         "TS_resourceGroupName": {
             "type": "string",
-            "defaultValue": "TemplateSpecs",
             "metadata": {
                 "description": "Template Specs Resource Group Name"
             }

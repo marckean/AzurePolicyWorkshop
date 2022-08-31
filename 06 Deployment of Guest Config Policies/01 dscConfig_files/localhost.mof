@@ -1,0 +1,56 @@
+/*
+@TargetNode='localhost'
+@GeneratedBy=makean
+@GenerationDate=08/31/2022 08:23:29
+@GenerationHost=MARCGO3
+*/
+
+instance of MSFT_Credential as $MSFT_Credential1ref
+{
+Password = "Passw0rd2022";
+ UserName = "MyTestAdminUser";
+
+};
+
+instance of MSFT_UserResource as $MSFT_UserResource1ref
+{
+UserName = "MyTestAdminUser";
+ ResourceID = "[User]AdminUser";
+ ModuleName = "PSDscResources";
+ Ensure = "Present";
+ ModuleVersion = "2.12.0.0";
+ SourceInfo = "::12::9::User";
+ Password = $MSFT_Credential1ref;
+ ConfigurationName = "CreateAdminUser";
+};
+instance of MSFT_GroupResource as $MSFT_GroupResource1ref
+{
+GroupName = "Administrators";
+ MembersToInclude = {
+    "MyTestAdminUser"
+};
+ ResourceID = "[Group]Resource0::[GroupSet]AddUserToAdminGroup";
+ ModuleName = "PSDscResources";
+ Ensure = "Present";
+ ModuleVersion = "2.12.0.0";
+ SourceInfo = "::2::1::Group";
+ ConfigurationName = "CreateAdminUser";
+};
+instance of OMI_ConfigurationDocument
+
+                    {
+ Version="2.0.0";
+
+                        MinimumCompatibleVersion = "1.0.0";
+
+                        CompatibleVersionAdditionalProperties= {"Omi_BaseResource:ConfigurationName"};
+
+                        Author="makean";
+
+                        GenerationDate="08/31/2022 08:23:29";
+
+                        GenerationHost="MARCGO3";
+
+                        Name="CreateAdminUser";
+
+                    };

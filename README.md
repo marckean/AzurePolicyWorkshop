@@ -5,13 +5,15 @@
     - [Day 1](#day-1)
     - [Day 2](#day-2)
     - [Day 3](#day-3)
-  - [Labs](#labs)
     - [Setup the local tools & environment](#setup-the-local-tools--environment)
-    - [Deployment of Azure resources](#deployment-of-azure-resources)
+  - [Variables](#variables)
+  - [Labs](#labs)
+    - [Deployment of Azure resources - Bicep](#deployment-of-azure-resources---bicep)
+    - [Deployment of Azure Built-In Policies - Bicep](#deployment-of-azure-built-in-policies---bicep)
     - [Deployment of Azure Custom Policies - JSON](#deployment-of-azure-custom-policies---json)
-    - [Deployment of Azure Built-In Policies - BICEP](#deployment-of-azure-built-in-policies---bicep)
-    - [Deployment of Azure Policy Exemptions - BICEP](#deployment-of-azure-policy-exemptions---bicep)
-    - [Deployment of Azure Resource Exemptions - BICEP](#deployment-of-azure-resource-exemptions---bicep)
+    - [Testing Azure Policies - Bicep](#testing-azure-policies---bicep)
+    - [Deployment of Azure Resource Exemptions - Bicep](#deployment-of-azure-resource-exemptions---bicep)
+    - [Testing Azure Resource Exemptions - Bicep](#testing-azure-resource-exemptions---bicep)
     - [Deployment of Guest Config VM Extension - JSON](#deployment-of-guest-config-vm-extension---json)
     - [Deployment of Guest Config Policies - JSON](#deployment-of-guest-config-policies---json)
 
@@ -25,8 +27,8 @@
 - Scope
   - We look at two types of scope here. Deployment scope and Policy scope
 
-- Deployment of test resources (Lab)
-  - In this lab, we use BICEP templates to deploy test Azure resources in order to test Azure Policy against. We use pre-written Bicep templates in order to deploy what we need
+- Deployment of test Azure resources (Lab)
+  - In this lab, we use Bicep templates to deploy test Azure resources in order to test Azure Policy against. We use pre-written Bicep templates in order to deploy what we need
   - This is a lab exercise
 
 - Effects
@@ -63,6 +65,10 @@
   - As some policies are either DeployIfNotExists or Modify, we also assign some built-in roles to the policy service principals
   - This is a lab exercise
 
+- Testing Azure Policies (Lab)
+  - We test the Azure Policies we have deployed in the previous lab exercise
+  - For this test we will use Bicep to deploy NSGs with ports opened from the internet on port 3389, 322  443 so see the effect that Azure Policy has on the resources being deployed. 
+
 - Exemptions
   - The Azure Policy exemptions feature is used to exempt a resource hierarchy or an individual resource from evaluation of initiatives or definitions. Resources that are exempt count toward overall compliance, but can't be evaluated or have a temporary waiver.
 
@@ -98,22 +104,24 @@
 - Guest Configuration/Azure Automanage Machine Configuration (Lab)
   - There are two labs here, one is for the **Guest Config VM extension deployment**, the other one is for the **Guest Config Policies** themselves.
 
-## Labs
-
 ### Setup the local tools & environment
 
-1. [Install the Azure extension for VS Code](https://marketplace.visualstudio.com/items?itemName=ms-vscode.vscode-node-azure-pack). Then sign into Azure.
+![](blobs/AllToolsOverview.png)
+
+1. Install all the following extensions in VS Code
+
+![](blobs/Extensions.png)
 
 
-![](blobs/AzureExtension.png)
+2. [Install the Azure extension for VS Code](https://marketplace.visualstudio.com/items?itemName=ms-vscode.vscode-node-azure-pack).
+
+Then sign into Azure.
 
 ![](blobs/VSCodeSignIntoAzure.png)
 
-2. [Use Azure Policy extension for Visual Studio Code](https://docs.microsoft.com/en-us/azure/governance/policy/how-to/extension-for-vscode)
-
-![](blobs/AzurePolicyExtension.png)
-
 3. [Install PowerShell on Windows, Linux, and macOS](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell)
+
+[Install PowerShell v7 on Windows if you’re a non-admin](https://apps.microsoft.com/store/detail/powershell/9MZ1SNWT0N5D?hl=en-au&gl=AU)
 
 ![](blobs/PowerShell.png)
 
@@ -123,39 +131,50 @@
 
 5. [Install Bicep tools & Azure CLI](https://docs.microsoft.com/en-us/azure/azure-resource-manager/bicep/install)
 
- You must have Azure CLI version 2.20.0 or later installed.
+ You must have Azure CLI version 2.20.0 or later installed. Azure CLI automatically installs the Bicep CLI when a command is executed that needs it.
  
- You can install the Bicep CLI and add it to your PATH. [You must manually install](https://docs.microsoft.com/en-us/azure/azure-resource-manager/bicep/install#install-manually) for any use other than Azure CLI. 
+ You can install the Bicep CLI and add it to your PATH. Or, [you must manually install Bicep ](https://docs.microsoft.com/en-us/azure/azure-resource-manager/bicep/install#install-manually) for any use other than Azure CLI, as this adds Bicep to the PATH for you. 
  
  Supported OS’s are Linux, MacOS, Windows
 
 ![](blobs/Bicep.png)
 
+## Variables
 
-### Deployment of Azure resources
+The variables to use in all the files in this workshop are contained in the one single file, so you only need to enter once. You can find the variables file [here](/01%20Variables/).
 
-Run the `deploy-AzureBicepResources.ps1` file in the [01 Deployment of Azure resources](/01%20Deployment%20of%20Azure%20resources/parentTemplates/) folder.
+![](blobs/variables.png)
+
+## Labs
+
+### Deployment of Azure resources - Bicep
+
+Run the `deploy-AzureBicepResources.ps1` file in the [02 Deployment of Azure resources](/02%20Deployment%20of%20Azure%20resources/parentTemplates/) folder.
+
+### Deployment of Azure Built-In Policies - Bicep
+
+Run the `deploy-AzureBicepResources.ps1` file in the [03.1 Deployment of Azure Resource Policies (BICEP)](/03.1%20Deployment%20of%20Azure%20Resource%20Policies%20(BICEP)/parent_PolicyTemplates) folder.
 
 ### Deployment of Azure Custom Policies - JSON
 
-Run the `deploy-AzureResourcePolicies.ps1` file in the [02 Deployment of Azure Resource Policies (JSON)](/02%20Deployment%20of%20Azure%20Resource%20Policies%20(JSON)/parentTemplates) folder.
+Run the `deploy-AzureBicepResources.ps1` file in the [03.2 Deployment of Azure Resource Policies (JSON)](/03.2%20Deployment%20of%20Azure%20Resource%20Policies%20(JSON)/parent_PolicyTemplates) folder.
 
-### Deployment of Azure Built-In Policies - BICEP
+### Testing Azure Policies - Bicep
 
-Run the `deploy-AzureBicepResources.ps1` file in the [02 Deployment of Azure Resource Policies (BICEP)](/02%20Deployment%20of%20Azure%20Resource%20Policies%20(BICEP)/parentTemplates) folder.
+Run the `deploy-AzureBicepResources.ps1` file in the [03.3 Testing Azure Policies](/03.3%20Testing%20Azure%20Policies/parentTemplates/) folder.
 
-### Deployment of Azure Policy Exemptions - BICEP
+### Deployment of Azure Resource Exemptions - Bicep
 
-Run the `deploy-AzureBicepResources.ps1` file in the [03 Deployment of Azure Policy Exemption (BICEP)](/03%20Deployment%20of%20Azure%20Policy%20Exemption%20(BICEP)/parentTemplates) folder.
+Run the `deploy-AzureBicepResources.ps1` file in the [04.1 Deployment of Azure Policy Exemption (BICEP)](/03%20Deployment%20of%20Azure%20Resource%20Exemptions%20(BICEP)/parentTemplates) folder.
 
-### Deployment of Azure Resource Exemptions - BICEP
+### Testing Azure Resource Exemptions - Bicep
 
-Run the `deploy-AzureBicepResources.ps1` file in the [03 Deployment of Azure Resource Exemptions (BICEP)](/03%20Deployment%20of%20Azure%20Resource%20Exemptions%20(BICEP)/parentTemplates) folder.
+Run the `deploy-guestConfigurationPolicies.ps1` file in the [04.2 Testing Azure Resource Exemptions (BICEP)](/04%20Deployment%20of%20Guest%20Config%20VM%20Extension/parent_PolicyTemplates/) folder.
 
 ### Deployment of Guest Config VM Extension - JSON
 
-Run the `deploy-guestConfigurationPolicies.ps1` file in the [04 Deployment of Guest Config VM Extension](/04%20Deployment%20of%20Guest%20Config%20VM%20Extension/parent_PolicyTemplates/) folder.
+Run the `deploy-guestConfigurationPolicies.ps1` file in the [05 Deployment of Guest Config VM Extension](/05%20Deployment%20of%20Guest%20Config%20VM%20Extension/parent_PolicyTemplates/) folder.
 
 ### Deployment of Guest Config Policies - JSON
 
-Run the `deploy-guestConfigurationPolicies.ps1` file in the [04 Deployment of Guest Config Policies](/04%20Deployment%20of%20Guest%20Config%20Policies/parent_PolicyTemplates/) folder.
+Run the `deploy-guestConfigurationPolicies.ps1` file in the [06 Deployment of Guest Config Policies](/06%20Deployment%20of%20Guest%20Config%20Policies/parent_PolicyTemplates/) folder.

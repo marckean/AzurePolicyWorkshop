@@ -5,7 +5,7 @@
     - [Day 1](#day-1)
     - [Day 2](#day-2)
     - [Day 3](#day-3)
-    - [Setup the local tools & environment](#setup-the-local-tools--environment)
+  - [Setup the local tools & environment](#setup-the-local-tools--environment)
   - [Variables](#variables)
   - [Labs](#labs)
     - [Deployment of Azure resources - Bicep](#deployment-of-azure-resources---bicep)
@@ -104,7 +104,7 @@
 - Guest Configuration/Azure Automanage Machine Configuration (Lab)
   - There are two labs here, one is for the **Guest Config VM extension deployment**, the other one is for the **Guest Config Policies** themselves.
 
-### Setup the local tools & environment
+## Setup the local tools & environment
 
 ![](blobs/AllToolsOverview.png)
 
@@ -146,6 +146,8 @@ The variables to use in all the files in this workshop are contained in the one 
 ![](blobs/variables.png)
 
 ## Labs
+
+Below are the labs in which you deploy with code. Note, one lab **remediation** is an interactive lab which is done in the Azure Portal.
 
 ### Deployment of Azure resources - Bicep
 

@@ -1,7 +1,7 @@
 . './01 variables/variables.ps1' # Dot Source the variables
 
 # Create a resource group for the template specs if needed
-$TSRG = Get-AzResourceGroup -ResourceGroupName $variables.tsResourceGroupName -Location $variables.location
+$TSRG = Get-AzResourceGroup -ResourceGroupName $variables.tsResourceGroupName -Location $variables.location -ErrorAction silentlycontinue
 if($null -eq $TSRG){New-AzResourceGroup -Name $variables.tsResourceGroupName -Location $variables.location}
 
 New-AzTemplateSpec `

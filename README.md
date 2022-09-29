@@ -27,6 +27,8 @@
 - Scope
   - We look at two types of scope here. Deployment scope and Policy scope
 
+![](blobs/DeploymentOfAzureResources.png)
+
 - Deployment of test Azure resources (Lab)
   - In this lab, we use Bicep templates to deploy test Azure resources in order to test Azure Policy against. We use pre-written Bicep templates in order to deploy what we need
   - This is a lab exercise

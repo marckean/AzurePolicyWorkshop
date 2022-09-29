@@ -84,6 +84,7 @@
 
     In this lab, we use JSON templates to deploy custom Azure policy definitions, then assign these definitions. This demonstrates how to govern the Azure resources
     - Secure transfer to storage accounts should be enabled
+
       | | |
       |----|----|
       |Policy Type|Definition|
@@ -92,6 +93,7 @@
     ![](blobs/Secure%20transfer%20to%20storage%20accounts%20should%20be%20enabled.png)
 
     - No RDP 3389 or SSH 22 from the internet
+
       | | |
       |----|----|
       |Policy Type|Definition|
@@ -100,6 +102,7 @@
     ![](blobs/No%20RDP%203389%20or%20SSH%2022%20from%20the%20internet.png)
 
     - Azure KeyVault desired settings
+
       | | |
       |----|----|
       |Policy Type|Definition|
@@ -108,6 +111,7 @@
     ![](blobs/Azure%20KeyVault%20desired%20settings.png)
 
     - Deny deployment of a custom role which has the same permissions as the built-in owner role
+    
       | | |
       |----|----|
       |Policy Type|Definition|

@@ -58,7 +58,7 @@
 
     - No RDP 3389 or SSH 22 from the internet
     
-    ![](blobs/no No%20RDP%203389%20or%20SSH%2022%20from%20the%20internet.png)
+    ![](blobs/No%20RDP%203389%20or%20SSH%2022%20from%20the%20internet.png)
 
     - Azure KeyVault desired settings
     
@@ -67,7 +67,7 @@
     - Deny deployment of a custom role which has the same permissions as the built-in owner role
     - Deny deployment of an NSG that contains NSG rules with port 22 or 3389 as destination ports
 
-    ![](blobs/deny Deny%20deployment%20of%20an%20NSG%20that%20contains%20NSG%20rules%20with%20port%2022%20or%203389%20as%20destination%20ports.png)
+    ![](blobs/Deny%20deployment%20of%20an%20NSG%20that%20contains%20NSG%20rules%20with%20port%2022%20or%203389%20as%20destination%20ports.png)
 
   - As some policies are either DeployIfNotExists or Modify, we also assign some built-in roles to the policy service principals
   - This is a lab exercise

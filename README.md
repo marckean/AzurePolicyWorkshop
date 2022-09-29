@@ -168,19 +168,32 @@
 
     Regulatory Compliance in Azure Policy provides built-in initiative definitions to view a list of the controls and compliance domains based on responsibility (Customer, Microsoft, Shared).
 
-19.  Policy Testing
+19. Policy Testing
 
     We look at ways to test Azure Policy without initiating the policy effect or triggering entries in the Azure Activity log.
 
-20.  Guest Configuration/Azure Automanage Machine Configuration
-  - Azure Policy's guest configuration feature provides native capability to audit or configure operating system settings as code, both for machines running in Azure and hybrid Arc-enabled machines. The feature can be used directly per-machine, or at-scale orchestrated by Azure Policy.
-  - We run some tests on Virtual Machines running in Azure
+20. Guest Configuration/Azure Automanage Machine Configuration (Lab)
 
-  ![](blobs/Deployment%20of%20Guest%20Config%20VM%20Extension.png)
+    There are two labs here, one is for the **Guest Config VM extension deployment**, the other one is for the **Guest Config Policies** themselves. 
+    
+    We deploy a Policy Initiative that installs the Guest Configuration extension on all Windows and Linux virtual machines in a Resource Group.
 
-21. Guest Configuration/Azure Automanage Machine Configuration (Lab)
+    - Deploy prerequisites to enable Guest Configuration policies on virtual machines
 
-    There are two labs here, one is for the **Guest Config VM extension deployment**, the other one is for the **Guest Config Policies** themselves.
+    | | |
+    |----|----|
+    |Policy Type|Initiative|
+    |Assignment Scope|Resource Group|
+
+    ![](blobs/Deployment%20of%20Guest%20Config%20VM%20Extension.png)
+
+21. Guest Configuration/Azure Automanage Machine Configuration
+
+    Azure Policy's guest configuration feature provides native capability to audit or configure operating system settings as code, both for machines running in Azure and hybrid Arc-enabled machines. The feature can be used directly per-machine, or at-scale orchestrated by Azure Policy.
+    
+    We run some tests on Virtual Machines running in Azure
+
+    
 
 ## Setup the local tools & environment
 

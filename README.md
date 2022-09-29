@@ -23,26 +23,26 @@
 
 1. Tooling
 
-We install all the tools needed for successful policy configuration & deployment
+  We install all the tools needed for successful policy configuration & deployment
 
 2. Scope
 
-We look at two types of scope here. Deployment scope and Policy scope
+  We look at two types of scope here. Deployment scope and Policy scope
 
 3. Deployment of test Azure resources (Lab)
 
-In this lab, we use Bicep templates to deploy test Azure resources in order to test Azure Policy against. We use pre-written Bicep templates in order to deploy what we need
-- This is a lab exercise
+  In this lab, we use Bicep templates to deploy test Azure resources in order to test Azure Policy against. We use pre-written Bicep templates in order to deploy what we need
+  - This is a lab exercise
 
 ![](blobs/DeploymentOfAzureResources.png)
 
 4. Effects
 
-Each policy definition in Azure Policy has a single effect. That effect determines what happens when the policy rule is evaluated to match. The effects behave differently if they are for a new resource, an updated resource, or an existing resource.
+  Each policy definition in Azure Policy has a single effect. That effect determines what happens when the policy rule is evaluated to match. The effects behave differently if they are for a new resource, an updated resource, or an existing resource.
 
 5. Policy Functions
 
-All [resource Manager template functions](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/template-functions) are available to use within a policy rule, except certain functions and user-defined functions.
+  All [resource Manager template functions](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/template-functions) are available to use within a policy rule, except certain functions and user-defined functions.
 
 ### Day 2
 

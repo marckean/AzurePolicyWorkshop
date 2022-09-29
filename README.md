@@ -144,6 +144,8 @@
   - We also test deploy some simple Azure resources using BICEP to test this Policy Exemption and to watch the effects of the exemption.
   - We deploy public IP addresses in different Azure regions to both **Company_Network** and **Company_Open** resource groups to watch the effects of the exemption.
 
+  ![](blobs/Azure%20Policy%20Exemption.png.png)
+
 ### Day 3
 
 14. Compliance
@@ -172,7 +174,9 @@
 
 20.  Guest Configuration/Azure Automanage Machine Configuration
   - Azure Policy's guest configuration feature provides native capability to audit or configure operating system settings as code, both for machines running in Azure and hybrid Arc-enabled machines. The feature can be used directly per-machine, or at-scale orchestrated by Azure Policy.
-  - We run some tests on Virtual Machines running in Azure.
+  - We run some tests on Virtual Machines running in Azure
+
+  ![](blobs/Deployment%20of%20Guest%20Config%20VM%20Extension.png)
 
 21. Guest Configuration/Azure Automanage Machine Configuration (Lab)
 

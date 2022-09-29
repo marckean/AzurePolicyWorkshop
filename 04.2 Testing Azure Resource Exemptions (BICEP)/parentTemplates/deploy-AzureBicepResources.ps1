@@ -1,5 +1,3 @@
-Connect-AzAccount
-
 . './01 variables/variables.ps1' # Dot Source the variables
 
 $TimeNow = Get-Date -Format yyyyMMdd-hhmm

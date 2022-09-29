@@ -61,6 +61,11 @@
 9. Deployment of **built-in** Azure Policy Assignments (Lab)
 
     In this lab, we use BICEP templates to deploy built-in Azure policy definitions, then assign these definitions. This demonstrates how to govern the Azure resources
+
+    As some policies are either DeployIfNotExists or Modify, we also assign some built-in roles to the policy service principals
+    
+    This is a lab exercise
+
     - Configure Windows machines to run Azure Monitor Agent and associate them to a Data Collection Rule
       
       | | |
@@ -77,12 +82,14 @@
       |Policy Type|Definition|
       |Assignment Scope|Subscription|
 
-   - As some policies are either DeployIfNotExists or Modify, we also assign some built-in roles to the policy service principals
-   - This is a lab exercise
-
 10. Deployment of **custom** Azure Policies (Lab)
 
     In this lab, we use JSON templates to deploy custom Azure policy definitions, then assign these definitions. This demonstrates how to govern the Azure resources
+
+    As some policies are either DeployIfNotExists or Modify, we also assign some built-in roles to the policy service principals
+    
+    This is a lab exercise
+
     - Secure transfer to storage accounts should be enabled
 
       | | |
@@ -111,7 +118,7 @@
     ![](blobs/Azure%20KeyVault%20desired%20settings.png)
 
     - Deny deployment of a custom role which has the same permissions as the built-in owner role
-    
+
       | | |
       |----|----|
       |Policy Type|Definition|
@@ -123,9 +130,6 @@
       |Assignment Scope|Subscription|
 
     ![](blobs/Deny%20deployment%20of%20an%20NSG%20that%20contains%20NSG%20rules%20with%20port%2022%20or%203389%20as%20destination%20ports.png)
-
-    - As some policies are either DeployIfNotExists or Modify, we also assign some built-in roles to the policy service principals
-    - This is a lab exercise
 
 11. Testing Azure Policies (Lab)
   - We test the Azure Policies we have deployed in the previous lab exercise

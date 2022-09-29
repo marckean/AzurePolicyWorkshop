@@ -225,15 +225,15 @@ module la1 '../childTemplates/log-analytics.bicep' = {
 }
 
 // Subscription Group scope
-module pa1 '../childTemplates/policy_assignments.bicep' = {
+//module pa1 '../childTemplates/policy_assignments.bicep' = {
   //scope: subscription(subscriptionID)
-  scope: resourceGroup(subscriptionID, resourceGroups_var[2].resourceGroupName)
-  name: 'Company_PolicyAssignment_01'
-  params: {
-    location: resourceGroupModule[0].outputs.RGLocation
-    DCR_ResourceGroupName: resourceGroups_var[1].resourceGroupName
-  }
-}
+  //scope: resourceGroup(subscriptionID, resourceGroups_var[2].resourceGroupName)
+  //name: 'Company_PolicyAssignment_01'
+  //params: {
+    //location: resourceGroupModule[0].outputs.RGLocation
+    //DCR_ResourceGroupName: resourceGroups_var[1].resourceGroupName
+  //}
+//}
 
 // Resource Group scope
 module virtual_Network_with_subnet_Module '../childTemplates/virtual_network_with_subnet.bicep' = [for virtualNetwork in virtualNetworks_var: {

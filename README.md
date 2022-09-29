@@ -27,11 +27,11 @@
 - Scope
   - We look at two types of scope here. Deployment scope and Policy scope
 
-![](blobs/DeploymentOfAzureResources.png)
-
 - Deployment of test Azure resources (Lab)
   - In this lab, we use Bicep templates to deploy test Azure resources in order to test Azure Policy against. We use pre-written Bicep templates in order to deploy what we need
   - This is a lab exercise
+
+![](blobs/DeploymentOfAzureResources.png)
 
 - Effects
   - Each policy definition in Azure Policy has a single effect. That effect determines what happens when the policy rule is evaluated to match. The effects behave differently if they are for a new resource, an updated resource, or an existing resource.
@@ -53,17 +53,39 @@
 - Deployment of **custom** Azure Policies (Lab)
   - In this lab, we use JSON templates to deploy custom Azure policy definitions, then assign these definitions. This demonstrates how to govern the Azure resources
     - Secure transfer to storage accounts should be enabled
+    
+    ![](blobs/Secure%20transfer%20to%20storage%20accounts%20should%20be%20enabled.png)
+
     - No RDP 3389 or SSH 22 from the internet
+    
+    ![](blobs/no No%20RDP%203389%20or%20SSH%2022%20from%20the%20internet.png)
+
     - Azure KeyVault desired settings
+    
+    ![](blobs/Azure%20KeyVault%20desired%20settings.png)
+    
     - Deny deployment of a custom role which has the same permissions as the built-in owner role
     - Deny deployment of an NSG that contains NSG rules with port 22 or 3389 as destination ports
+
+    ![](blobs/deny Deny%20deployment%20of%20an%20NSG%20that%20contains%20NSG%20rules%20with%20port%2022%20or%203389%20as%20destination%20ports.png)
+
   - As some policies are either DeployIfNotExists or Modify, we also assign some built-in roles to the policy service principals
   - This is a lab exercise
 
 - Deployment of **built-in** Azure Policies (Lab)
   - In this lab, we use BICEP templates to deploy built-in Azure policy definitions, then assign these definitions. This demonstrates how to govern the Azure resources
     - Configure Windows machines to run Azure Monitor Agent and associate them to a Data Collection Rule
+      - **Policy Type**: Initiative
+      - **Scope**: Resource Group
+      - **Definitions**:
+        - Configure Windows Machines to be associated with a Data Collection Rule
+        - Configure Windows virtual machines to run Azure Monitor Agent using system-assigned managed identity
+        
+        ![](blobs/LogAnalyticsPolicies.png)
+
     - Allowed_Locations
+      - **Policy Type**: Definition
+      - **Scope**: Subscription
   - As some policies are either DeployIfNotExists or Modify, we also assign some built-in roles to the policy service principals
   - This is a lab exercise
 

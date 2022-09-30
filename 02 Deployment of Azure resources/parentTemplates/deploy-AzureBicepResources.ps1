@@ -1,9 +1,9 @@
 # Sign-in
 Connect-AzAccount
 
-. './01 variables/variables.ps1' # Dot Source the variables
-
 Set-AzContext -SubscriptionId $variables.subscription_id
+
+. './01 variables/variables.ps1' # Dot Source the variables
 
 $adminPassword = Read-Host "Enter your local admin password for the VMs" -AsSecureString
 

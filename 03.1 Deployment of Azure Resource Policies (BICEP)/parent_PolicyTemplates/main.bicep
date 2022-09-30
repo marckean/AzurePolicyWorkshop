@@ -1,5 +1,6 @@
 targetScope = 'managementGroup'
 
+param PaaS_ResourceGroupName string = 'Company_PaaS'
 param IaaS_ResourceGroupName string = 'Company_IaaS'
 param DCR_Name string = 'AllSystemInformation'
 
@@ -30,7 +31,7 @@ var policyAssignments_RG_var = [
     }
     parameters: {
       DcrResourceId: {
-        value: resourceId(subscriptionID, IaaS_ResourceGroupName, 'Microsoft.Insights/dataCollectionRules', DCR_Name)
+        value: resourceId(subscriptionID, PaaS_ResourceGroupName, 'Microsoft.Insights/dataCollectionRules', DCR_Name)
       }
     }
     nonComplianceMessages: [

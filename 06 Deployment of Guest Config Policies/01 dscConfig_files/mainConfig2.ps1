@@ -36,4 +36,5 @@ $ConfigurationData = @{
 }
 
 $Credentials = Get-Credential -UserName MyTestAdminUser
+
 CreateAdminUser -PasswordCredential $Credentials -ConfigurationData $ConfigurationData -OutputPath ".\06 Deployment of Guest Config Policies\01 dscConfig_files"

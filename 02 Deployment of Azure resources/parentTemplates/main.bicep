@@ -85,18 +85,6 @@ var nics_var = [
     subnetName: virtualNetworks_var[0].subnets_var[0].subnetName
     networkInterfaceName: 'LA-Test-DCR-02-NIC'
   }
-  {
-    name: 'Company_NIC_03'
-    virtualNetworkName: virtualNetworks_var[0].virtualNetworkName
-    subnetName: virtualNetworks_var[0].subnets_var[0].subnetName
-    networkInterfaceName: 'LA-Test-DCR-03-NIC'
-  }
-  {
-    name: 'Company_NIC_04'
-    virtualNetworkName: virtualNetworks_var[0].virtualNetworkName
-    subnetName: virtualNetworks_var[0].subnets_var[0].subnetName
-    networkInterfaceName: 'LA-Test-DCR-04-NIC'
-  }
 ]
 
 // Virtual Machines
@@ -114,24 +102,6 @@ var virtualMachine_var = [
     name: 'Company_VirtualMachine_02'
     virtualMachineName: 'LA-Test-DCR-02'
     networkInterfaceName: nics_var[1].networkInterfaceName
-    networkInterfaceResourceGroupName: resourceGroups_var[3].resourceGroupName
-    adminUsername: vm_username
-    adminPassword: secret_vm_password
-    virtualMachineSize: 'Standard_B2ms'
-  }
-  {
-    name: 'Company_VirtualMachine_03'
-    virtualMachineName: 'LA-Test-DCR-03'
-    networkInterfaceName: nics_var[2].networkInterfaceName
-    networkInterfaceResourceGroupName: resourceGroups_var[3].resourceGroupName
-    adminUsername: vm_username
-    adminPassword: secret_vm_password
-    virtualMachineSize: 'Standard_B2ms'
-  }
-  {
-    name: 'Company_VirtualMachine_04'
-    virtualMachineName: 'LA-Test-DCR-04'
-    networkInterfaceName: nics_var[3].networkInterfaceName
     networkInterfaceResourceGroupName: resourceGroups_var[3].resourceGroupName
     adminUsername: vm_username
     adminPassword: secret_vm_password

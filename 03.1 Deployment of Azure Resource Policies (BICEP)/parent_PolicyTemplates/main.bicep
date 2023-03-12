@@ -2,7 +2,7 @@ targetScope = 'managementGroup'
 
 param PaaS_ResourceGroupName string = 'Company_PaaS'
 param IaaS_ResourceGroupName string = 'Company_IaaS'
-param DCR_Name string = 'AllSystemInformation'
+param DCR_Name string = 'DCR-AllSystemInformation'
 
 param listOfAllowedLocations array = [
   'australiaeast'

@@ -53,7 +53,7 @@ resource DCR_AllSystemInformation 'Microsoft.Insights/dataCollectionRules@2021-0
             'Microsoft-Event'
           ]
           xPathQueries: [
-            '*[System[(Level=4 or Level=0)]]'
+            'System!*[System[(Level=1 or Level=2 or Level=3 or Level=4 or Level=0)]]'
           ]
           name: 'AllSystemInformation'
         }
@@ -95,7 +95,7 @@ resource DCR_AllSystemCritical 'Microsoft.Insights/dataCollectionRules@2021-04-0
             'Microsoft-Event'
           ]
           xPathQueries: [
-            '*[System[(Level=1)]]'
+            'System!*[System[(Level=1)]]'
           ]
           name: 'AllSystemCritical'
         }
